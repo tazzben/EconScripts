@@ -17,9 +17,9 @@ class CalculateGamma:
 	
 	# Class Startup, default values defined to prevent crash if undefined
 	
-	def __init__(self, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[]):
+	def __init__(self, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], twister=False):
 		self.tranche = tranche
-		eCv = EstablishmentOfCohort(averageFirmSize, lstDev, numberOfFirms, self.tranche)
+		eCv = EstablishmentOfCohort(averageFirmSize, lstDev, numberOfFirms, self.tranche, twister)
 		self.cohort = eCv.GetFirms()
 		del eCv
 		

@@ -13,15 +13,17 @@ class gammaSimulation:
 	sHerfindahl = {}
 	sGValue = {} 
 	critcalValues = []
+	twister = False
 	
 	# Class Startup, default values defined to prevent crash if undefined
 	
-	def __init__(self, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], critcalValues=[], tLoops=1):
+	def __init__(self, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], critcalValues=[], tLoops=1, twister=False):
 		self.tranche = tranche
 		self.numberOfFirms = numberOfFirms
 		self.averageFirmSize = averageFirmSize
 		self.lstDev = lstDev
 		self.critcalValues = critcalValues
+		self.twister = twister
 		self.Run(tLoops)
 
 	def getGamma(self):
@@ -38,7 +40,7 @@ class gammaSimulation:
 		herfindahlList = []
 		gValueList = []
 		for i in range(tLoops):
-			eCg = CalculateGamma(self.averageFirmSize,self.lstDev,self.numberOfFirms,self.tranche)
+			eCg = CalculateGamma(self.averageFirmSize,self.lstDev,self.numberOfFirms,self.tranche,self.twister)
 			gamma = float(eCg.GetGamma())
 			herfindahl = float(eCg.GetHerfindahl())
 			gValue = float(eCg.GetGValue())

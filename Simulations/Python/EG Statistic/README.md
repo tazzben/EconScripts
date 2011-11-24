@@ -13,7 +13,11 @@ You must specify five input files [option switch in brackets]:
 * Number of Firms: File containing a list of the number of firms in an industry [-n]
 * Destination: File to save output (CSV) [-d]
 
-You must also specify the number of iterations per simulation [-i].  We recommend at least 1000.
+You must also specify the number of iterations per simulation [-i].  We recommend at least 1000.  If you wish to use the mersenne twister algorithm instead of fortuna for random number generation [--twister].
+
+### Example Command ###
+
+	python EGSimulation.py -t "data/tranche.txt" -c "data/criticalvalues.txt" -f "data/size.txt" -s "data/stdev.txt" -n "data/firms.txt" -i "1200" -d "data/output.csv"
 
 ## Notice ##
 

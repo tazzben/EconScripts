@@ -44,12 +44,12 @@ def WriteFile(filename,criticalvalues,data):
 	print "Saving # of Firms: " + str(data['NumberOfFirms']) + ", Firm Size: " + str(data['FirmSize']) + ", StDev: " + str(data['StDev'])
 
 
-def RunSimulation(numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopsc,destination):
+def RunSimulation(numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopsc,destination, twister):
 	for x in range(len(numberoffirmsList)):
 		for y in range(len(firmsizeList)):
 			for z in range(len(sdevList)):
 				resultDic = {}
-				cGS = gammaSimulation(firmsizeList[y], sdevList[z], int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc)
+				cGS = gammaSimulation(firmsizeList[y], sdevList[z], int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister)
 				gamma = cGS.getGamma()
 				herfindahl = cGS.getHerfindahl()
 				gValue = cGS.getGValue()
@@ -107,6 +107,8 @@ def main():
 	p.add_option('--numberoffirms', '-n', dest="numberoffirms", help="File containing the number of firms (in an industry) to test", default='', metavar='"<File Path>"')
 	p.add_option('--iterations', '-i', dest="iterations", help="Number of iterations to run for each simulation", default='5', metavar='"<Integer Value>"')
 	p.add_option('--destination', '-d', dest="destination", help="Main csv file to save simulation(s) output", default='', metavar='"<File Path>"')
+	p.add_option("--twister", action="store_true", dest="twister", default=False, help="Use mersenne twister for random number generation instead of fortuna")
+	
 	(options, arguments) = p.parse_args();
 	
 	if isNumeric(options.iterations):
@@ -134,7 +136,7 @@ def main():
 		numberoffirmsList = loadFile(numberoffirmsfile)
 		sdevList = loadFile(sdevfile)
 		
-		RunSimulation(numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopcount,destination)
+		RunSimulation(numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopcount,destination,options.twister)
 		
 	else:
 		print 'You must specify files for tranche, critical values, firm size, number of firms, standard deviation'

@@ -11,14 +11,16 @@ class EstablishmentOfCohort:
 	tranche = []
 	lstDev = 1
 	firms = []
+	twister = False
 	
 	# Class Startup, default values defined to prevent crash if undefined
 	
-	def __init__(self, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[]):
+	def __init__(self, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], twister=False):
 		self.averageFirmSize = averageFirmSize
 		self.numberOfFirms = numberOfFirms
 		self.lstDev = lstDev
 		self.tranche = tranche
+		self.twister = twister
 		
 		for x in range(self.numberOfFirms):
 			firmDict = {}
@@ -45,6 +47,9 @@ class EstablishmentOfCohort:
 
 	def FindURandom(self):
 		rIV = RandomIntVal()
-		value = rIV.getValue()
+		if self.twister == True:
+			value = rIV.getValueTwister()
+		else:	
+			value = rIV.getValue()
 		del rIV
 		return value
