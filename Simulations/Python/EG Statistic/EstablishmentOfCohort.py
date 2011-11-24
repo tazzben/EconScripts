@@ -15,12 +15,13 @@ class EstablishmentOfCohort:
 	
 	# Class Startup, default values defined to prevent crash if undefined
 	
-	def __init__(self, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], twister=False):
+	def __init__(self, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], twister=False, roundval=True):
 		self.averageFirmSize = averageFirmSize
 		self.numberOfFirms = numberOfFirms
 		self.lstDev = lstDev
 		self.tranche = tranche
 		self.twister = twister
+		self.roundval = roundval
 		
 		for x in range(self.numberOfFirms):
 			firmDict = {}
@@ -39,7 +40,9 @@ class EstablishmentOfCohort:
 		return x
 	
 	def GetFirmSize(self):
-		firmsize = np.round(np.exp(norm.ppf(float(self.FindURandom()),scale=float(self.lstDev),loc=np.log(float(self.averageFirmSize)))))
+		firmsize = np.exp(norm.ppf(float(self.FindURandom()),scale=float(self.lstDev),loc=np.log(float(self.averageFirmSize))))
+		if self.roundval==True:
+			firmsize = np.round(firmsize)
 		if firmsize > 0:
 			return firmsize
 		else:

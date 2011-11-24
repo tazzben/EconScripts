@@ -13,7 +13,7 @@ You must specify five input files [option switch in brackets]:
 * Number of Firms: File containing a list of the number of firms in an industry [-n]
 * Destination: File to save output (CSV) [-d]
 
-You must also specify the number of iterations per simulation [-i].  We recommend at least 1000.  If you wish to use the mersenne twister algorithm instead of fortuna for random number generation [--twister].
+You must also specify the number of iterations per simulation [-i].  We recommend at least 1000.  If you wish to use the mersenne twister algorithm instead of fortuna for random number generation [--twister].  If you wish to allow non-integer firm head counts, you can specify the option [--nonintfirmsize].
 
 ### Example Command ###
 

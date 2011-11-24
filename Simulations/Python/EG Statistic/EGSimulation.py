@@ -44,12 +44,12 @@ def WriteFile(filename,criticalvalues,data):
 	print "Saving # of Firms: " + str(data['NumberOfFirms']) + ", Firm Size: " + str(data['FirmSize']) + ", StDev: " + str(data['StDev'])
 
 
-def RunSimulation(numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopsc,destination, twister):
+def RunSimulation(numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopsc,destination, twister, roundval):
 	for x in range(len(numberoffirmsList)):
 		for y in range(len(firmsizeList)):
 			for z in range(len(sdevList)):
 				resultDic = {}
-				cGS = gammaSimulation(firmsizeList[y], sdevList[z], int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister)
+				cGS = gammaSimulation(firmsizeList[y], sdevList[z], int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister, roundval)
 				gamma = cGS.getGamma()
 				herfindahl = cGS.getHerfindahl()
 				gValue = cGS.getGValue()
@@ -108,6 +108,7 @@ def main():
 	p.add_option('--iterations', '-i', dest="iterations", help="Number of iterations to run for each simulation", default='5', metavar='"<Integer Value>"')
 	p.add_option('--destination', '-d', dest="destination", help="Main csv file to save simulation(s) output", default='', metavar='"<File Path>"')
 	p.add_option("--twister", action="store_true", dest="twister", default=False, help="Use mersenne twister for random number generation instead of fortuna")
+	p.add_option("--nonintfirmsize", action="store_false", dest="roundval", default=True, help="Allow non-integer firm headcounts")
 	
 	(options, arguments) = p.parse_args();
 	
@@ -136,7 +137,7 @@ def main():
 		numberoffirmsList = loadFile(numberoffirmsfile)
 		sdevList = loadFile(sdevfile)
 		
-		RunSimulation(numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopcount,destination,options.twister)
+		RunSimulation(numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopcount,destination,options.twister,options.roundval)
 		
 	else:
 		print 'You must specify files for tranche, critical values, firm size, number of firms, standard deviation'
