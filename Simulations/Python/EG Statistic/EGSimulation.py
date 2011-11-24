@@ -7,6 +7,7 @@ import codecs
 from gammaSimulation import *
 import csv
 from decimal import *
+import numpy
 
 def isNumeric(value):
 	return str(value).replace('.','').strip().isdigit()
@@ -49,7 +50,7 @@ def RunSimulation(numberoffirmsList,firmsizeList,sdevList,trancheList,criticalva
 		for y in range(len(firmsizeList)):
 			for z in range(len(sdevList)):
 				resultDic = {}
-				cGS = gammaSimulation(firmsizeList[y], sdevList[z], int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister, roundval)
+				cGS = gammaSimulation(firmsizeList[y], float(numpy.log(firmsizeList[y])*float(sdevList[z])), int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister, roundval)
 				gamma = cGS.getGamma()
 				herfindahl = cGS.getHerfindahl()
 				gValue = cGS.getGValue()
