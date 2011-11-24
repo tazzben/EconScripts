@@ -1,4 +1,4 @@
-# CGSimulation - Compute Ellison & Glaeser Critical Regions by Simulation #
+# EGSimulation - Compute Ellison & Glaeser Critical Regions by Simulation #
 
 By using a simulation of firm sizes (using a lognormal distribution) and specified geographic regions, standard deviations and employee head count, we can compute the critical regions for the Ellison & Glaeser statistic.  
 
