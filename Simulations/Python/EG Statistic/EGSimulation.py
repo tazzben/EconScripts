@@ -49,7 +49,7 @@ def RunSimulation(numberoffirmsList,firmsizeList,sdevList,trancheList,criticalva
 		for y in range(len(firmsizeList)):
 			for z in range(len(sdevList)):
 				resultDic = {}
-				cGS = gammaSimulation(firmsizeList[y], sdevList[z], numberoffirmsList[x], trancheList, criticalvaluesList, loopsc)
+				cGS = gammaSimulation(firmsizeList[y], sdevList[z], int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc)
 				gamma = cGS.getGamma()
 				herfindahl = cGS.getHerfindahl()
 				gValue = cGS.getGValue()
@@ -93,7 +93,7 @@ def loadFile(value):
 	
 	for x in range(len(read_data)):
 		if isNumeric(read_data[x].strip()):
-			empty_data.append(Decimal(read_data[x].strip()))
+			empty_data.append(float(read_data[x].strip()))
 			
 	return empty_data
 

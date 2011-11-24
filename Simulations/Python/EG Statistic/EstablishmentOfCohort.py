@@ -1,6 +1,5 @@
 import numpy as np
 from scipy.stats import norm
-from decimal import *
 from RandomIntVal import *
 class EstablishmentOfCohort:
 	"""Class to define cohort of firms for simulation"""

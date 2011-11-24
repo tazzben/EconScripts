@@ -1,6 +1,5 @@
 import numpy
 from CalculateGamma import *
-from decimal import *
 class gammaSimulation:
 	"""Class to handle/store simulation values"""
 	
@@ -53,11 +52,11 @@ class gammaSimulation:
 		self.sGamma['std'] = numpy.std(gammaList)
 		self.sGamma['min'] = numpy.nanmin(gammaList)
 		self.sGamma['max'] = numpy.nanmax(gammaList)
-		sumProb = Decimal(0)
-		sumPValue = Decimal(0)
+		sumProb = float(0)
+		sumPValue = float(0)
 		gcritcalValues = []
 		
-		oneUnit = Decimal(1)/Decimal(str(len(gammaList)))
+		oneUnit = float(1)/float(len(gammaList))
 		for i in range(len(self.critcalValues)):
 			gcritcalValues.append('')
 		for x in range(len(gammaList)):
