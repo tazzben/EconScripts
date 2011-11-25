@@ -12,10 +12,11 @@ class EstablishmentOfCohort:
 	firms = []
 	twister = False
 	rState = False
+	distNorm = False
 	
 	# Class Startup, default values defined to prevent crash if undefined
 	
-	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], twister=False, roundval=True):
+	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], twister=False, roundval=True, distNorm=False):
 		self.averageFirmSize = averageFirmSize
 		self.numberOfFirms = numberOfFirms
 		self.lstDev = lstDev
@@ -24,6 +25,7 @@ class EstablishmentOfCohort:
 		self.roundval = roundval
 		self.rState = rState
 		self.firms = []
+		self.distNorm = False
 		
 		for x in range(self.numberOfFirms):
 			firmDict = {}
@@ -43,7 +45,10 @@ class EstablishmentOfCohort:
 	
 	def GetFirmSize(self):
 		if float(self.lstDev) > 0:
-			firmsize = np.exp(norm.ppf(float(self.FindURandom()),scale=float(self.lstDev),loc=np.log(float(self.averageFirmSize))))
+			if distNorm==True:
+				firmsize = norm.ppf(float(self.FindURandom()),scale=float(self.lstDev),loc=float(self.averageFirmSize)))
+			else:
+				firmsize = numpy.log(numpy.random.lognormal(mean=self.averageFirmSize, sigma=float(self.lstDev)))
 		else:
 			firmsize = self.averageFirmSize
 		if self.roundval==True:

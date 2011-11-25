@@ -54,7 +54,7 @@ def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,cr
 				if float(sdevList[z]) == float(0) or float(firmsizeList[y]) == float(0):
 					stsend = 0
 				else:
-					stsend = float(numpy.log(firmsizeList[y]*float(sdevList[z])))
+					stsend = float(firmsizeList[y]*float(sdevList[z]))
 				cGS = gammaSimulation(rState, firmsizeList[y], stsend, int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister, roundval)
 				gamma = cGS.getGamma()
 				herfindahl = cGS.getHerfindahl()
