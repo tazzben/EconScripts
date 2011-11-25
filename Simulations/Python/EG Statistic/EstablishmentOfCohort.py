@@ -48,7 +48,11 @@ class EstablishmentOfCohort:
 			if self.distNorm==True:
 				firmsize = norm.ppf(float(self.FindURandom()),scale=float(self.lstDev),loc=float(self.averageFirmSize))
 			else:
-				firmsize = np.log(np.random.lognormal(mean=float(self.averageFirmSize), sigma=float(self.lstDev)))
+				firmsize = np.random.lognormal(mean=float(self.averageFirmSize), sigma=float(self.lstDev))
+				if firmsize > 0:
+					firmsize = np.log(firmsize)
+				else:
+					firmsize = 0
 		else:
 			firmsize = self.averageFirmSize
 		if self.roundval==True:
