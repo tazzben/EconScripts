@@ -23,6 +23,7 @@ class EstablishmentOfCohort:
 		self.twister = twister
 		self.roundval = roundval
 		self.rState = rState
+		self.firms = []
 		
 		for x in range(self.numberOfFirms):
 			firmDict = {}
@@ -41,7 +42,10 @@ class EstablishmentOfCohort:
 		return x
 	
 	def GetFirmSize(self):
-		firmsize = np.exp(norm.ppf(float(self.FindURandom()),scale=float(self.lstDev),loc=np.log(float(self.averageFirmSize))))
+		if float(self.lstDev) > 0:
+			firmsize = np.exp(norm.ppf(float(self.FindURandom()),scale=float(self.lstDev),loc=np.log(float(self.averageFirmSize))))
+		else:
+			firmsize = self.averageFirmSize
 		if self.roundval==True:
 			firmsize = np.round(firmsize)
 		if firmsize > 0:
