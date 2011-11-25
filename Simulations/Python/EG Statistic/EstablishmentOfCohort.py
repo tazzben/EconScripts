@@ -1,6 +1,5 @@
 import numpy as np
 from scipy.stats import norm
-from RandomIntVal import *
 class EstablishmentOfCohort:
 	"""Class to define cohort of firms for simulation"""
 	
@@ -12,16 +11,18 @@ class EstablishmentOfCohort:
 	lstDev = 1
 	firms = []
 	twister = False
+	rState = False
 	
 	# Class Startup, default values defined to prevent crash if undefined
 	
-	def __init__(self, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], twister=False, roundval=True):
+	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], twister=False, roundval=True):
 		self.averageFirmSize = averageFirmSize
 		self.numberOfFirms = numberOfFirms
 		self.lstDev = lstDev
 		self.tranche = tranche
 		self.twister = twister
 		self.roundval = roundval
+		self.rState = rState
 		
 		for x in range(self.numberOfFirms):
 			firmDict = {}
@@ -49,10 +50,8 @@ class EstablishmentOfCohort:
 			return 0
 
 	def FindURandom(self):
-		rIV = RandomIntVal()
 		if self.twister == True:
-			value = rIV.getValueTwister()
+			value = self.rState.getValueTwister()
 		else:	
-			value = rIV.getValue()
-		del rIV
+			value = self.rState.getValue()
 		return value

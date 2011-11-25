@@ -8,6 +8,7 @@ from gammaSimulation import *
 import csv
 from decimal import *
 import numpy
+from RandomIntVal import *
 
 def isNumeric(value):
 	return str(value).replace('.','').strip().isdigit()
@@ -45,12 +46,12 @@ def WriteFile(filename,criticalvalues,data):
 	print "Saving # of Firms: " + str(data['NumberOfFirms']) + ", Firm Size: " + str(data['FirmSize']) + ", StDev: " + str(data['StDev'])
 
 
-def RunSimulation(numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopsc,destination, twister, roundval):
+def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopsc,destination, twister, roundval):
 	for x in range(len(numberoffirmsList)):
 		for y in range(len(firmsizeList)):
 			for z in range(len(sdevList)):
 				resultDic = {}
-				cGS = gammaSimulation(firmsizeList[y], float(numpy.log(firmsizeList[y])*float(sdevList[z])), int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister, roundval)
+				cGS = gammaSimulation(rState, firmsizeList[y], float(numpy.log(firmsizeList[y])*float(sdevList[z])), int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister, roundval)
 				gamma = cGS.getGamma()
 				herfindahl = cGS.getHerfindahl()
 				gValue = cGS.getGValue()
@@ -110,6 +111,7 @@ def main():
 	p.add_option('--destination', '-d', dest="destination", help="Main csv file to save simulation(s) output", default='', metavar='"<File Path>"')
 	p.add_option("--twister", action="store_true", dest="twister", default=False, help="Use mersenne twister for random number generation instead of fortuna")
 	p.add_option("--nonintfirmsize", action="store_false", dest="roundval", default=True, help="Allow non-integer firm headcounts")
+	p.add_option("--seed", type="int", dest="seed", default=1012810, help="Seed the random generator with a specified value")
 	
 	(options, arguments) = p.parse_args();
 	
@@ -138,8 +140,9 @@ def main():
 		numberoffirmsList = loadFile(numberoffirmsfile)
 		sdevList = loadFile(sdevfile)
 		
-		RunSimulation(numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopcount,destination,options.twister,options.roundval)
-		
+		rState = RandomIntVal(int(options.seed))
+		RunSimulation(rState,numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopcount,destination,options.twister,options.roundval)
+		del rState
 	else:
 		print 'You must specify files for tranche, critical values, firm size, number of firms, standard deviation'
 		sys.exit()	
