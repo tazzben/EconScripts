@@ -1,5 +1,7 @@
 import numpy as np
 from scipy.stats import norm
+from scipy.stats import lognorm
+import math
 class EstablishmentOfCohort:
 	"""Class to define cohort of firms for simulation"""
 	
@@ -46,10 +48,10 @@ class EstablishmentOfCohort:
 	def GetFirmSize(self):
 		if float(self.lstDev) > 0:
 			if self.distNorm==True:
-				firmsize = norm.ppf(float(self.FindURandom()),scale=float(self.lstDev),loc=float(self.averageFirmSize))
+				firmsize = float(norm.ppf(float(self.FindURandom()),scale=float(self.lstDev),loc=float(self.averageFirmSize)))
 			else:
-				firmsize = np.random.lognormal(mean=float(self.averageFirmSize), sigma=float(self.lstDev))
-				if firmsize > 0:
+				firmsize = float(np.random.lognormal(mean=float(self.averageFirmSize), sigma=float(self.lstDev)))
+				if firmsize > 0 and math.isinf(firmsize) == False:
 					firmsize = np.log(firmsize)
 				else:
 					firmsize = 0
