@@ -46,7 +46,7 @@ def WriteFile(filename,criticalvalues,data):
 	print "Saving # of Firms: " + str(data['NumberOfFirms']) + ", Firm Size: " + str(data['FirmSize']) + ", StDev: " + str(data['StDev'])
 
 
-def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopsc,destination, twister, roundval):
+def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopsc,destination, twister, roundval, normaldist):
 	for x in range(len(numberoffirmsList)):
 		for y in range(len(firmsizeList)):
 			for z in range(len(sdevList)):
@@ -55,7 +55,7 @@ def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,cr
 					stsend = 0
 				else:
 					stsend = float(firmsizeList[y]*float(sdevList[z]))
-				cGS = gammaSimulation(rState, firmsizeList[y], stsend, int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister, roundval)
+				cGS = gammaSimulation(rState, firmsizeList[y], stsend, int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister, roundval,normaldist)
 				gamma = cGS.getGamma()
 				herfindahl = cGS.getHerfindahl()
 				gValue = cGS.getGValue()
@@ -116,6 +116,7 @@ def main():
 	p.add_option("--twister", action="store_true", dest="twister", default=False, help="Use mersenne twister for random number generation instead of fortuna")
 	p.add_option("--nonintfirmsize", action="store_false", dest="roundval", default=True, help="Allow non-integer firm headcounts")
 	p.add_option("--seed", type="int", dest="seed", default=1012810, help="Seed the random generator with a specified value")
+	p.add_option("--normal", action="store_true", dest="normaldist", default=False, help="Normal distributed firm sizes instead of log normal")
 	
 	(options, arguments) = p.parse_args();
 	
@@ -145,7 +146,7 @@ def main():
 		sdevList = loadFile(sdevfile)
 		
 		rState = RandomIntVal(int(options.seed))
-		RunSimulation(rState,numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopcount,destination,options.twister,options.roundval)
+		RunSimulation(rState,numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopcount,destination,options.twister,options.roundval,options.normaldist)
 		del rState
 	else:
 		print 'You must specify files for tranche, critical values, firm size, number of firms, standard deviation'
