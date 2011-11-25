@@ -17,7 +17,7 @@ You must also specify the number of iterations per simulation [-i].  We recommen
 
 ### Example Command ###
 
-	python EGSimulation.py -t "data/tranche.txt" -c "data/criticalvalues.txt" -f "data/size.txt" -s "data/stdev.txt" -n "data/firms.txt" -i "1200" -d "data/output.csv"
+	./EGSimulation -t "data/tranche.txt" -c "data/criticalvalues.txt" -f "data/size.txt" -s "data/stdev.txt" -n "data/firms.txt" -i "1200" -d "data/output.csv"
 
 ## Notice ##
 
