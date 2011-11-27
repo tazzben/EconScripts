@@ -111,7 +111,7 @@ def main():
 	p.add_option('--firmsize', '-f', dest="firmsize", help="File containing firm size (head count)", default='', metavar='"<File Path>"')
 	p.add_option('--sdev', '-s', dest="sdev", help="File containing the standard deviations to test", default='', metavar='"<File Path>"')
 	p.add_option('--numberoffirms', '-n', dest="numberoffirms", help="File containing the number of firms (in an industry) to test", default='', metavar='"<File Path>"')
-	p.add_option('--iterations', '-i', dest="iterations", help="Number of iterations to run for each simulation", default='5', metavar='"<Integer Value>"')
+	p.add_option('--iterations', '-i', type="int", dest="iterations", help="Number of iterations to run for each simulation", default=1000)
 	p.add_option('--destination', '-d', dest="destination", help="Main csv file to save simulation(s) output", default='', metavar='"<File Path>"')
 	p.add_option("--twister", action="store_true", dest="twister", default=False, help="Use mersenne twister for random number generation instead of fortuna")
 	p.add_option("--nonintfirmsize", action="store_false", dest="roundval", default=True, help="Allow non-integer firm headcounts")
@@ -119,15 +119,6 @@ def main():
 	p.add_option("--normal", action="store_true", dest="normaldist", default=False, help="Normal distributed firm sizes instead of log normal")
 	
 	(options, arguments) = p.parse_args();
-	
-	if isNumeric(options.iterations):
-		loopcount = int(options.iterations)
-		if loopcount<1:
-			print 'Your simulation must run for at least one loop'
-			sys.exit()
-	else:
-		print 'You must specify a number for iterations'
-		sys.exit()
 	
 	if len(options.destination)>0:
 		destination = isReturnFile(options.destination.strip())
@@ -146,7 +137,7 @@ def main():
 		sdevList = loadFile(sdevfile)
 		
 		rState = RandomIntVal(int(options.seed))
-		RunSimulation(rState,numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopcount,destination,options.twister,options.roundval,options.normaldist)
+		RunSimulation(rState,numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,int(options.iterations),destination,options.twister,options.roundval,options.normaldist)
 		del rState
 	else:
 		print 'You must specify files for tranche, critical values, firm size, number of firms, standard deviation'
