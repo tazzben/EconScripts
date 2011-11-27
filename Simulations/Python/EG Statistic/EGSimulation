@@ -120,8 +120,17 @@ def main():
 	
 	(options, arguments) = p.parse_args();
 	
+	
+	
 	if len(options.destination)>0:
 		destination = isReturnFile(options.destination.strip())
+	else:
+		print 'You must specify a destination file'
+		sys.exit()
+	
+	if int(options.iterations)<=0 or int(options.seed)<0:
+		print 'You must specify a positive value for both iterations and seeding the random number generator'
+		sys.exit()
 	
 	if len(options.tranche)>0 and len(options.criticalvalues)>0 and len(options.firmsize)>0 and len(options.numberoffirms)>0 and len(options.sdev)>0:
 		tranchefile = fileExists(options.tranche)
