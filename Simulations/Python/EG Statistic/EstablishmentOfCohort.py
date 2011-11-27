@@ -2,6 +2,7 @@ import numpy as np
 from scipy.stats import norm
 from scipy.stats import lognorm
 import math
+import logging
 class EstablishmentOfCohort:
 	"""Class to define cohort of firms for simulation"""
 	
@@ -50,11 +51,10 @@ class EstablishmentOfCohort:
 			if self.distNorm==True:
 				firmsize = float(norm.ppf(float(self.FindURandom()),scale=float(self.lstDev),loc=float(self.averageFirmSize)))
 			else:
-				firmsize = float(np.random.lognormal(mean=float(self.averageFirmSize), sigma=float(self.lstDev)))
-				if firmsize > 0 and math.isinf(firmsize) == False:
-					firmsize = np.log(firmsize)
-				else:
-					firmsize = 0
+				firmsize = float(lognorm.ppf(float(self.FindURandom()),float(self.lstDev)/float(self.averageFirmSize),scale=float(self.averageFirmSize)))
+			if math.isinf(firmsize) == True:
+				firmsize = 0
+				logging.info("Infinity encountered")
 		else:
 			firmsize = self.averageFirmSize
 		if self.roundval==True:
