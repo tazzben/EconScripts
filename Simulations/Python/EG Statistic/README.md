@@ -8,6 +8,7 @@ You must specify five input files [option switch in brackets]:
 
 * Tranche file: *Commutative* geographic population file (last value in the file should be 1) - [-t]
 * Critical Values: A list of all of the critical values you want to test [-c]
+* P Values: A list of the p values you want to test [--pvalues]
 * Firm Size: File containing a list of average firm sizes (in terms of employees) [-f]
 * Stand Deviations: File containing a list of standard deviations [-s]
 * Number of Firms: File containing a list of the number of firms in an industry [-n]
