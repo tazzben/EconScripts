@@ -89,7 +89,7 @@ class gammaSimulation:
 				if sumProb < self.critcalValues[i]:
 					gcritcalValues[i] = gammaList[x]
 					
-		self.sGamma['pvalue'] = sumPValue
+		self.sGamma['pvalue'] = finalPValue
 		self.sGamma['criticalValues'] = gcritcalValues
 		self.sGamma['pValues'] = gpvalueList
 		self.sHerfindahl = {}
