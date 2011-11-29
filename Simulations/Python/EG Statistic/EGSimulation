@@ -27,11 +27,15 @@ def isReturnFile(myfile):
 		print 'You can\'t save to that location'
 		sys.exit()
 
-def WriteFile(filename,criticalvalues,data):
+def WriteFile(filename,criticalvalues, pvaluesList,data):
 	fieldList = ['NumberOfFirms','FirmSize','StDev','GammaMean','GammaMin','GammaMax','GammaStd','HerfindahlMean','HerfindahlMin','HerfindahlMax','HerfindahlStd','GValueMean','GValueMin','GValueMax','GValueStd','PValue']
 	
 	for x in range(len(criticalvalues)):
 		fieldList.append("C" + str(criticalvalues[x]).replace('.','').strip())
+		
+	for x in range(len(pvaluesList)):
+		fieldList.append("P" + str(pvaluesList[x]).replace('.','').strip())
+	
 	
 	if os.path.isfile(filename) == False:
 		mf = open(filename, 'wb')
@@ -46,7 +50,7 @@ def WriteFile(filename,criticalvalues,data):
 	print "Saving # of Firms: " + str(data['NumberOfFirms']) + ", Firm Size: " + str(data['FirmSize']) + ", StDev: " + str(data['StDev'])
 
 
-def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopsc,destination, twister, roundval, normaldist):
+def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopsc,destination, twister, roundval, normaldist, pvaluesList):
 	for x in range(len(numberoffirmsList)):
 		for y in range(len(firmsizeList)):
 			for z in range(len(sdevList)):
@@ -55,7 +59,7 @@ def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,cr
 					stsend = 0
 				else:
 					stsend = float(firmsizeList[y]*float(sdevList[z]))
-				cGS = gammaSimulation(rState, firmsizeList[y], stsend, int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister, roundval,normaldist)
+				cGS = gammaSimulation(rState, firmsizeList[y], stsend, int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister, roundval, normaldist, pvaluesList)
 				gamma = cGS.getGamma()
 				herfindahl = cGS.getHerfindahl()
 				gValue = cGS.getGValue()
@@ -89,7 +93,14 @@ def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,cr
 				for cv in range(len(criticalvaluesList)):
 					key = "C" + str(criticalvaluesList[cv]).replace('.','').strip()
 					resultDic[key] = lcv[cv]
-				WriteFile(destination,criticalvaluesList,resultDic)
+				
+				lcv = gamma['pValues']
+
+				for cv in range(len(pvaluesList)):
+					key = "P" + str(pvaluesList[cv]).replace('.','').strip()
+					resultDic[key] = lcv[cv]	
+				
+				WriteFile(destination,criticalvaluesList, pvaluesList,resultDic)
 				
  
 def loadFile(value):
@@ -108,6 +119,7 @@ def main():
 	p = optparse.OptionParser(description=desc)
 	p.add_option('--tranchefile', '-t', dest="tranche", help="File containing geographic tranches", default='', metavar='"<File Path>"')
 	p.add_option('--criticalvalues', '-c', dest="criticalvalues", help="File containing critical values to test", default='', metavar='"<File Path>"')
+	p.add_option('--pvalues',dest="pvalues", help="File containing p values to test", default='', metavar='"<File Path>"')
 	p.add_option('--firmsize', '-f', dest="firmsize", help="File containing firm size (head count)", default='', metavar='"<File Path>"')
 	p.add_option('--sdev', '-s', dest="sdev", help="File containing the standard deviations to test", default='', metavar='"<File Path>"')
 	p.add_option('--numberoffirms', '-n', dest="numberoffirms", help="File containing the number of firms (in an industry) to test", default='', metavar='"<File Path>"')
@@ -132,6 +144,12 @@ def main():
 		print 'You must specify a positive value for both iterations and seeding the random number generator'
 		sys.exit()
 	
+	pvalues = []
+	if len(options.pvalues)>0:
+		pvaluesfile = fileExists(options.pvalues)
+		pvalues = loadFile(pvaluesfile)
+		
+	
 	if len(options.tranche)>0 and len(options.criticalvalues)>0 and len(options.firmsize)>0 and len(options.numberoffirms)>0 and len(options.sdev)>0:
 		tranchefile = fileExists(options.tranche)
 		criticalvaluesfile = fileExists(options.criticalvalues)
@@ -146,7 +164,7 @@ def main():
 		sdevList = loadFile(sdevfile)
 		
 		rState = RandomIntVal(int(options.seed))
-		RunSimulation(rState,numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,int(options.iterations),destination,options.twister,options.roundval,options.normaldist)
+		RunSimulation(rState,numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,int(options.iterations),destination,options.twister,options.roundval,options.normaldist,pvalues)
 		del rState
 	else:
 		print 'You must specify files for tranche, critical values, firm size, number of firms, standard deviation'

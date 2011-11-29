@@ -17,10 +17,11 @@ class gammaSimulation:
 	roundval = True
 	rState = False
 	distNorm = False
+	pValues = []
 	
 	# Class Startup, default values defined to prevent crash if undefined
 	
-	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], critcalValues=[], tLoops=1, twister=False, roundval=True, distNorm=False):
+	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], critcalValues=[], tLoops=1, twister=False, roundval=True, distNorm=False, pValues=[]):
 		self.tranche = tranche
 		self.numberOfFirms = numberOfFirms
 		self.averageFirmSize = averageFirmSize
@@ -30,6 +31,7 @@ class gammaSimulation:
 		self.roundval = roundval
 		self.rState = rState
 		self.distNorm = distNorm
+		self.pValues = pValues
 		self.Run(tLoops)
 
 	def getGamma(self):
@@ -61,21 +63,35 @@ class gammaSimulation:
 		self.sGamma['min'] = numpy.nanmin(gammaList)
 		self.sGamma['max'] = numpy.nanmax(gammaList)
 		sumProb = float(0)
-		sumPValue = float(0)
+		finalPValue = float(0)
 		gcritcalValues = []
+		gpvalueList = []
+		
 		
 		oneUnit = float(1)/float(len(gammaList))
+		for i in range(len(self.pValues)):
+			gpvalueList.append('')
+
 		for i in range(len(self.critcalValues)):
 			gcritcalValues.append('')
 		for x in range(len(gammaList)):
-			if gammaList[x] < 0:
-				sumPValue = sumPValue + oneUnit			
+						
 			sumProb = sumProb + oneUnit	
+			
+			if gammaList[x] < 0:
+				finalPValue = sumProb
+				
+			for i in range(len(self.pValues)):
+				if gammaList[x] < self.pValues[i]:
+					gpvalueList[i] = sumProb
+			
 			for i in range(len(self.critcalValues)):
 				if sumProb < self.critcalValues[i]:
 					gcritcalValues[i] = gammaList[x]
+					
 		self.sGamma['pvalue'] = sumPValue
 		self.sGamma['criticalValues'] = gcritcalValues
+		self.sGamma['pValues'] = gpvalueList
 		self.sHerfindahl = {}
 		self.sHerfindahl['mean'] = numpy.mean(herfindahlList)
 		self.sHerfindahl['std'] = numpy.std(herfindahlList)
