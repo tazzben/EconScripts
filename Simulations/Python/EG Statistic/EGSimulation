@@ -126,7 +126,7 @@ def main():
 	p.add_option('--iterations', '-i', type="int", dest="iterations", help="Number of iterations to run for each simulation", default=1000)
 	p.add_option('--destination', '-d', dest="destination", help="Main csv file to save simulation(s) output", default='', metavar='"<File Path>"')
 	p.add_option("--twister", action="store_true", dest="twister", default=False, help="Use mersenne twister for random number generation instead of fortuna")
-	p.add_option("--nonintfirmsize", action="store_false", dest="roundval", default=True, help="Allow non-integer firm headcounts")
+	p.add_option("--roundfirmsize", action="store_true", dest="roundval", default=False, help="Round firm size to closest integer")
 	p.add_option("--roundfirmsizedown", action="store_true", dest="roundvaldown", default=False, help="Round firm size down to closest integer")
 	p.add_option("--roundfirmsizeup", action="store_true", dest="roundvalup", default=False, help="Round firm size down to closest integer")
 	p.add_option("--seed", type="int", dest="seed", default=1012810, help="Seed the random generator with a specified value")
@@ -166,12 +166,12 @@ def main():
 		sdevList = loadFile(sdevfile)
 		roundval = False
 		
-		if options.roundval == True:
-			roundval = True
-		elif options.roundvaldown == True:
+		if options.roundvaldown == True:
 			roundval = 'floor'
 		elif options.roundvalup == True:
 			roundval = 'ceil'
+		elif options.roundval == True:
+			roundval = True
 		
 		rState = RandomIntVal(int(options.seed))
 		RunSimulation(rState,numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,int(options.iterations),destination,options.twister,roundval,options.normaldist,pvalues)
