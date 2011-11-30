@@ -14,14 +14,14 @@ class gammaSimulation:
 	sGValue = {} 
 	critcalValues = []
 	twister = False
-	roundval = True
+	roundval = False
 	rState = False
 	distNorm = False
 	pValues = []
 	
 	# Class Startup, default values defined to prevent crash if undefined
 	
-	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], critcalValues=[], tLoops=1, twister=False, roundval=True, distNorm=False, pValues=[]):
+	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], critcalValues=[], tLoops=1, twister=False, roundval=False, distNorm=False, pValues=[]):
 		self.tranche = tranche
 		self.numberOfFirms = numberOfFirms
 		self.averageFirmSize = averageFirmSize

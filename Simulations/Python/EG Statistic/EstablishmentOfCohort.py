@@ -16,10 +16,11 @@ class EstablishmentOfCohort:
 	twister = False
 	rState = False
 	distNorm = False
+	roundval = False
 	
 	# Class Startup, default values defined to prevent crash if undefined
 	
-	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], twister=False, roundval=True, distNorm=False):
+	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], twister=False, roundval=False, distNorm=False):
 		self.averageFirmSize = averageFirmSize
 		self.numberOfFirms = numberOfFirms
 		self.lstDev = lstDev
@@ -57,8 +58,14 @@ class EstablishmentOfCohort:
 				logging.info("Infinity encountered")
 		else:
 			firmsize = self.averageFirmSize
-		if self.roundval==True:
+		
+		if self.roundval=='floor':
+			firmsize = np.floor(firmsize)
+		elif self.roundval=='ceil':
+			firmsize = np.ceil(firmsize)
+		elif self.roundval==True:
 			firmsize = np.round(firmsize)
+		
 		if firmsize > 0:
 			return firmsize
 		else:
