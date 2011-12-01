@@ -17,7 +17,7 @@ def fileExists(value):
     if os.path.isfile(os.path.expanduser(value.strip())):
         return os.path.abspath(os.path.expanduser(value.strip()))
     else:
-        print "I can't find the file" + value
+        print "I can't find the file " + value
         sys.exit()
 
 def isReturnFile(myfile):
