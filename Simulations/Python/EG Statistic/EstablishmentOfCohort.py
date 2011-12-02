@@ -63,6 +63,8 @@ class EstablishmentOfCohort:
 			firmsize = np.floor(firmsize)
 		elif self.roundval=='ceil':
 			firmsize = np.ceil(firmsize)
+		elif self.roundval=='tenths':
+			firmsize = np.round(firmsize,1)
 		elif self.roundval==True:
 			firmsize = np.round(firmsize)
 		
