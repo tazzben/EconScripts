@@ -35,6 +35,12 @@ def WriteFile(filename,criticalvalues, pvaluesList,data):
 		
 	for x in range(len(pvaluesList)):
 		fieldList.append("P" + str(pvaluesList[x]).replace('.','').strip())
+		
+	for x in range(len(criticalvalues)):
+		fieldList.append("HC" + str(criticalvalues[x]).replace('.','').strip())
+
+	for x in range(len(pvaluesList)):
+		fieldList.append("HP" + str(pvaluesList[x]).replace('.','').strip())
 	
 	
 	if os.path.isfile(filename) == False:
@@ -94,10 +100,20 @@ def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,cr
 					key = "C" + str(criticalvaluesList[cv]).replace('.','').strip()
 					resultDic[key] = lcv[cv]
 				
+				lcv = herfindahl['criticalValues']
+				for cv in range(len(criticalvaluesList)):
+					key = "HC" + str(criticalvaluesList[cv]).replace('.','').strip()
+					resultDic[key] = lcv[cv]
+				
 				lcv = gamma['pValues']
 
 				for cv in range(len(pvaluesList)):
 					key = "P" + str(pvaluesList[cv]).replace('.','').strip()
+					resultDic[key] = lcv[cv]
+				
+				lcv = herfindahl['pValues']
+				for cv in range(len(pvaluesList)):
+					key = "HP" + str(pvaluesList[cv]).replace('.','').strip()
 					resultDic[key] = lcv[cv]	
 				
 				WriteFile(destination,criticalvaluesList, pvaluesList,resultDic)

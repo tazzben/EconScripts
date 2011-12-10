@@ -57,6 +57,7 @@ class gammaSimulation:
 			herfindahlList.append(herfindahl)
 			gValueList.append(gValue)
 		gammaList.sort()
+		herfindahlList.sort()
 		self.sGamma = {}
 		self.sGamma['mean'] = numpy.mean(gammaList)
 		self.sGamma['std'] = numpy.std(gammaList)
@@ -66,14 +67,25 @@ class gammaSimulation:
 		finalPValue = float(0)
 		gcritcalValues = []
 		gpvalueList = []
+		hvlist = []
+		hcritcalValues = []
 		
 		
 		oneUnit = float(1)/float(len(gammaList))
+		
 		for i in range(len(self.pValues)):
 			gpvalueList.append('')
+		
+		for i in range(len(self.pValues)):
+			hvlist.append('')
 
 		for i in range(len(self.critcalValues)):
+			hcritcalValues.append('')
+		
+		for i in range(len(self.critcalValues)):
 			gcritcalValues.append('')
+		
+		
 		for x in range(len(gammaList)):
 						
 			sumProb = sumProb + oneUnit	
@@ -84,15 +96,21 @@ class gammaSimulation:
 			for i in range(len(self.pValues)):
 				if gammaList[x] < self.pValues[i]:
 					gpvalueList[i] = sumProb
-			
+				if herfindahlList[x] < self.pValues[i]:
+					hvlist[i] = sumProb
+				
 			for i in range(len(self.critcalValues)):
 				if sumProb < self.critcalValues[i]:
 					gcritcalValues[i] = gammaList[x]
+				if sumProb < self.critcalValues[i]:
+					hcritcalValues[i] = herfindahlList[x]
 					
 		self.sGamma['pvalue'] = finalPValue
 		self.sGamma['criticalValues'] = gcritcalValues
 		self.sGamma['pValues'] = gpvalueList
 		self.sHerfindahl = {}
+		self.sHerfindahl['criticalValues'] = herfindahlList
+		self.sHerfindahl['pValues'] = hvlist
 		self.sHerfindahl['mean'] = numpy.mean(herfindahlList)
 		self.sHerfindahl['std'] = numpy.std(herfindahlList)
 		self.sHerfindahl['min'] = numpy.nanmin(herfindahlList)
