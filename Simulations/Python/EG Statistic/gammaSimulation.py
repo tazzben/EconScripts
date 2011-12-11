@@ -109,7 +109,7 @@ class gammaSimulation:
 		self.sGamma['criticalValues'] = gcritcalValues
 		self.sGamma['pValues'] = gpvalueList
 		self.sHerfindahl = {}
-		self.sHerfindahl['criticalValues'] = herfindahlList
+		self.sHerfindahl['criticalValues'] = hcritcalValues
 		self.sHerfindahl['pValues'] = hvlist
 		self.sHerfindahl['mean'] = numpy.mean(herfindahlList)
 		self.sHerfindahl['std'] = numpy.std(herfindahlList)
