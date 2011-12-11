@@ -4,8 +4,8 @@ My goal with this is repository is to provide some of my scripts that other econ
 
 Thanks, 
 
-Ben Smith
-Economist 
+Ben Smith  
+Economist    
 Washington State University  
 
 ## Optimization Scripts ##
