@@ -131,7 +131,7 @@ def loadFile(value):
 	return empty_data
 
 def main():
-	desc = 'Tool to simulate EG statistic'
+	desc = 'Tool to simulate EG statistic and Herfindahl values'
 	p = optparse.OptionParser(description=desc)
 	p.add_option('--tranchefile', '-t', dest="tranche", help="File containing geographic tranches", default='', metavar='"<File Path>"')
 	p.add_option('--criticalvalues', '-c', dest="criticalvalues", help="File containing critical values to test", default='', metavar='"<File Path>"')
