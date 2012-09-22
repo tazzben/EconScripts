@@ -32,6 +32,12 @@ def WriteFile(filename,criticalvalues, pvaluesList,data):
 	
 	for x in range(len(criticalvalues)):
 		fieldList.append("C" + str(criticalvalues[x]).replace('.','').strip())
+	
+	for x in range(len(criticalvalues)):
+		fieldList.append("GHC" + str(criticalvalues[x]).replace('.','').strip())
+	
+	for x in range(len(criticalvalues)):
+		fieldList.append("GHCL" + str(criticalvalues[x]).replace('.','').strip())
 		
 	for x in range(len(pvaluesList)):
 		fieldList.append("P" + str(pvaluesList[x]).replace('.','').strip())
@@ -98,6 +104,18 @@ def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,cr
 				
 				for cv in range(len(criticalvaluesList)):
 					key = "C" + str(criticalvaluesList[cv]).replace('.','').strip()
+					resultDic[key] = lcv[cv]
+				
+				lcv = gamma['hCritical']
+					
+				for cv in range(len(criticalvaluesList)):
+					key = "GHC" + str(criticalvaluesList[cv]).replace('.','').strip()
+					resultDic[key] = lcv[cv]
+					
+				lcv = gamma['hCriticalLow']
+					
+				for cv in range(len(criticalvaluesList)):
+					key = "GHCL" + str(criticalvaluesList[cv]).replace('.','').strip()
 					resultDic[key] = lcv[cv]
 				
 				lcv = herfindahl['criticalValues']

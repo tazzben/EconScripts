@@ -1,4 +1,5 @@
 import numpy
+import operator
 from CalculateGamma import *
 class gammaSimulation:
 	"""Class to handle/store simulation values"""
@@ -47,6 +48,7 @@ class gammaSimulation:
 		gammaList = []
 		herfindahlList = []
 		gValueList = []
+		combindedList = []
 		for i in range(tLoops):
 			eCg = CalculateGamma(self.rState,self.averageFirmSize,self.lstDev,self.numberOfFirms,self.tranche,self.twister,self.roundval,self.distNorm)
 			gamma = float(eCg.GetGamma())
@@ -56,8 +58,14 @@ class gammaSimulation:
 			gammaList.append(gamma)
 			herfindahlList.append(herfindahl)
 			gValueList.append(gValue)
+			combined = {}
+			combined['gamma'] = gamma
+			combined['herfindahl'] = herfindahl
+			combindedList.append(combined)
 		gammaList.sort()
 		herfindahlList.sort()
+		combindedList.sort(key=operator.itemgetter('gamma'))
+		
 		self.sGamma = {}
 		self.sGamma['mean'] = numpy.mean(gammaList)
 		self.sGamma['std'] = numpy.std(gammaList)
@@ -69,7 +77,9 @@ class gammaSimulation:
 		gpvalueList = []
 		hvlist = []
 		hcritcalValues = []
-		
+		hatcrit = []
+		hatcritl = []
+		herflist = []
 		
 		oneUnit = float(1)/float(len(gammaList))
 		
@@ -84,11 +94,14 @@ class gammaSimulation:
 		
 		for i in range(len(self.critcalValues)):
 			gcritcalValues.append('')
+			hatcrit.append('')
+			hatcritl.append('')
 		
 		
 		for x in range(len(gammaList)):
 						
 			sumProb = sumProb + oneUnit	
+			herflist.append(combindedList[x]['herfindahl'])
 			
 			if gammaList[x] < 0:
 				finalPValue = sumProb
@@ -102,11 +115,16 @@ class gammaSimulation:
 			for i in range(len(self.critcalValues)):
 				if sumProb < self.critcalValues[i]:
 					gcritcalValues[i] = gammaList[x]
+					hatcrit[i] = numpy.nanmax(herflist)
+					hatcritl[i] = numpy.nanmin(herflist)
+
 				if sumProb < self.critcalValues[i]:
 					hcritcalValues[i] = herfindahlList[x]
 					
 		self.sGamma['pvalue'] = finalPValue
 		self.sGamma['criticalValues'] = gcritcalValues
+		self.sGamma['hCritical'] = hatcrit
+		self.sGamma['hCriticalLow'] = hatcritl
 		self.sGamma['pValues'] = gpvalueList
 		self.sHerfindahl = {}
 		self.sHerfindahl['criticalValues'] = hcritcalValues
