@@ -79,6 +79,8 @@ class gammaSimulation:
 		hcritcalValues = []
 		hatcrit = []
 		hatcritl = []
+		hatcrits = []
+		hatcritls = []
 		herflist = []
 		
 		oneUnit = float(1)/float(len(gammaList))
@@ -96,6 +98,8 @@ class gammaSimulation:
 			gcritcalValues.append('')
 			hatcrit.append('')
 			hatcritl.append('')
+			hatcrits.append('')
+			hatcritls.append('')
 		
 		
 		for x in range(len(gammaList)):
@@ -116,9 +120,10 @@ class gammaSimulation:
 				if sumProb < self.critcalValues[i]:
 					gcritcalValues[i] = gammaList[x]
 				elif sumProb >= self.critcalValues[i] and hatcrit[i] == '' and hatcritl[i]== '' and len(herflist)>0:
-					hatcrit[i] = numpy.nanmax(herflist)
-					# print str(self.critcalValues[i]) + ": " + str(numpy.nanmax(herflist)) 
-					hatcritl[i] = numpy.nanmin(herflist)
+					hatcrit[i] = numpy.percentile(numpy.array(herflist),97.5) 
+					hatcritl[i] = numpy.percentile(numpy.array(herflist),2.5)
+					hatcrits[i] = numpy.percentile(numpy.array(herflist),95) 
+					hatcritls[i] = numpy.percentile(numpy.array(herflist),5)
 
 				if sumProb < self.critcalValues[i]:
 					hcritcalValues[i] = herfindahlList[x]
@@ -129,6 +134,8 @@ class gammaSimulation:
 		self.sGamma['criticalValues'] = gcritcalValues
 		self.sGamma['hCritical'] = hatcrit
 		self.sGamma['hCriticalLow'] = hatcritl
+		self.sGamma['hCriticals'] = hatcrits
+		self.sGamma['hCriticalLows'] = hatcritls
 		self.sGamma['pValues'] = gpvalueList
 		self.sHerfindahl = {}
 		self.sHerfindahl['criticalValues'] = hcritcalValues
