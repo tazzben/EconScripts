@@ -101,7 +101,7 @@ class gammaSimulation:
 		for x in range(len(gammaList)):
 						
 			sumProb = sumProb + oneUnit	
-			herflist.append(combindedList[x]['herfindahl'])
+			
 			
 			if gammaList[x] < 0:
 				finalPValue = sumProb
@@ -115,11 +115,15 @@ class gammaSimulation:
 			for i in range(len(self.critcalValues)):
 				if sumProb < self.critcalValues[i]:
 					gcritcalValues[i] = gammaList[x]
+				elif sumProb >= self.critcalValues[i] and hatcrit[i] == '' and hatcritl[i]== '' and len(herflist)>0:
 					hatcrit[i] = numpy.nanmax(herflist)
+					# print str(self.critcalValues[i]) + ": " + str(numpy.nanmax(herflist)) 
 					hatcritl[i] = numpy.nanmin(herflist)
 
 				if sumProb < self.critcalValues[i]:
 					hcritcalValues[i] = herfindahlList[x]
+					
+			herflist.append(combindedList[x]['herfindahl'])
 					
 		self.sGamma['pvalue'] = finalPValue
 		self.sGamma['criticalValues'] = gcritcalValues

@@ -9,6 +9,7 @@ import csv
 from decimal import *
 import numpy
 from RandomIntVal import *
+import pprint
 
 def isNumeric(value):
 	return str(value).replace('.','').strip().isdigit()
@@ -107,6 +108,8 @@ def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,cr
 					resultDic[key] = lcv[cv]
 				
 				lcv = gamma['hCritical']
+				
+				# pprint.pprint(lcv)
 					
 				for cv in range(len(criticalvaluesList)):
 					key = "GHC" + str(criticalvaluesList[cv]).replace('.','').strip()
@@ -119,6 +122,7 @@ def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,cr
 					resultDic[key] = lcv[cv]
 				
 				lcv = herfindahl['criticalValues']
+				
 				for cv in range(len(criticalvaluesList)):
 					key = "HC" + str(criticalvaluesList[cv]).replace('.','').strip()
 					resultDic[key] = lcv[cv]
