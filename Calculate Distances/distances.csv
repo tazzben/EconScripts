@@ -1,0 +1,12 @@
+"New York, NY","Seattle, WA",2413.655739877878
+"New York, NY","London, UK",3470.4606612526177
+"New York, NY","Paris, France",3635.3740340289314
+"Seattle, WA","New York, NY",2413.6557398778777
+"Seattle, WA","London, UK",4799.06521430995
+"Seattle, WA","Paris, France",5010.554141154906
+"London, UK","New York, NY",3470.4606612526177
+"London, UK","Seattle, WA",4799.06521430995
+"London, UK","Paris, France",212.53483036660222
+"Paris, France","New York, NY",3635.3740340289314
+"Paris, France","Seattle, WA",5010.554141154906
+"Paris, France","London, UK",212.53483036660242
