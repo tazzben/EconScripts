@@ -25,6 +25,14 @@ Current simulations are:
 * Gibbs Sampler from Multivariate Normal with Burn-In Feature (R Project)
 * EG Statistic which Simulates Critical Values for Geographic Clustering (Python - Current Research by Andrew Cassey and Ben Smith)
 
+## Class ##
+
+I've posted my slides for those who took my Python class.  This explains the basics of programming and using NumPy and SciPy.
+
+## Calculate Distances ##
+
+An extremely common problem in economics is finding the physical distances between the Cartesian product of a list of cities (all of the various combinations between each of those cities).  This is important in particular in gravity models (which are common in trade).  The included Mathematica code solves this problem.   
+
 ## Helpful Links ##
 
 Optimization Methods (Wikipedia):
