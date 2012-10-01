@@ -1,0 +1,29 @@
+\section{Git Remotes}
+
+But Git can also work with remote servers (``remotes").  As an example let's clone the EconScripts repository off of GitHub.
+
+\begin{quote}
+	\begin{verbatim}
+		> git clone git://github.com/tazzben/EconScripts.git
+	\end{verbatim}
+\end{quote}
+
+Now, on my computer, I have the full EconScripts repository.  I can make changes to the files, stage the files and commit the files \textbf{exactly} as I did in section \ref{sec:concepts}.  However, there is one difference, once I'm ready for others to see those changes, I can ``push" them to the remote.
+
+\begin{quote}
+	\begin{verbatim}
+		> git fetch
+		> git push
+	\end{verbatim}
+\end{quote}
+
+If I want to pull in the changes others have made, I simply type:
+
+\begin{quote}
+	\begin{verbatim}
+		> git fetch
+		> git pull
+	\end{verbatim}
+\end{quote}
+
+But, what about that figure \ref{fig:timeline} with the multiple authors?  What if multiple people are working on the same file at once?  It isn't a problem.  Git commits \emph{changes} so you and someone else can work on the same file, make additions to out-of-date files and when it gets pushed up to the remote they will be reconciled.   

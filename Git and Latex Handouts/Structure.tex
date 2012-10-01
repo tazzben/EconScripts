@@ -1,0 +1,119 @@
+\section{Structure of a LaTeX Document}
+
+A LaTeX document is a tree-like structure where nodes (or environments) can have sub-nodes.  Let's start with an extremely basic LaTeX document:
+
+\begin{quote}
+	\begin{verbatim}
+		\documentclass[11pt]{article}
+		
+		\begin{document} 
+		
+		\section{Introduction}
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+		
+		\subsection{Why this is important}
+		Suspendisse eget urna urna, ut pharetra odio....
+		
+		\section{Conclusion}
+		In sed sem quis leo convallis tempor....		
+		\end{document}
+	\end{verbatim}
+\end{quote}
+
+\subsection{The Header and Packages}
+
+The area between:
+
+\begin{quote}
+	\begin{verbatim}
+		\documentclass[11pt]{article}
+	\end{verbatim}
+\end{quote}
+
+And 
+
+\begin{quote}
+	\begin{verbatim}
+		\begin{document} 
+	\end{verbatim}
+\end{quote}
+
+Is called the header.  This is the area where we import packages (which adds a set of functions to LaTeX) and set options or settings.  For instance, the default margins (in my opinion) are strange.  So, I'm going to add a package that sets the margins to more traditional settings:
+
+\begin{quote}
+	\begin{verbatim}
+		\usepackage{fullpage}
+	\end{verbatim}
+\end{quote}
+
+Adding a package is just that easy.  ``usepackage" takes the following general form:
+
+\begin{quote}
+	\begin{verbatim}
+		\usepackage[options]{PackageName}
+	\end{verbatim}
+\end{quote}
+
+Options can often be omitted, which will result in the default behavior of the package. 
+
+\subsection{The Document and Your Content}
+
+The area between:
+
+\begin{quote}
+	\begin{verbatim}
+		\begin{document} 
+	\end{verbatim}
+\end{quote}
+
+And
+
+\begin{quote}
+	\begin{verbatim}
+		\end{document} 
+	\end{verbatim}
+\end{quote}
+
+Is where you write your content.  Note the use of $\backslash begin\{document\}$ and $\backslash end\{document\}$.  This means that anything between ``begin" and ``end" is part of the document node.  There might be equations, tables or other ``environments" that you start and stop with $\backslash begin\{\cdot\}$ and $\backslash end\{\cdot\}$, but because you haven't ended the document, they are sub-nodes of the document.
+
+\subsubsection{Sections}
+
+$\backslash section\{Section~Title\}$ starts a section.  A section can have a subsection by using the command $\backslash subsection\{Subsection~Title\}$.  You can think of subsections as sub-nodes of the section.  In both the case of sections and subsections, the nodes are numbered.  So, the first section of your document will take the number ``1", while the first subsection of a section would take the the number ``[section number].1".  Section numbering can be suppressed by using a ``*" like so: $\backslash section^*\{Section~Title\}$.  Most, but not all, environments that auto-number suppress their numbering when you include a ``*".
+
+Another set of commands you might want to use is $\backslash label\{\cdot\}$ and $\backslash ref\{\cdot\}$.  Nodes and sub-nodes in the document can generally be labeled so you can reference them without worrying about the auto-numbering changing.  For instance I might label the introduction like so:
+
+\begin{quote}
+	\begin{verbatim}
+		\section{Introduction}
+		\label{sec:introduction} 
+	\end{verbatim}
+\end{quote}
+
+Then later in the document, I could write:
+
+\begin{quote}
+	\begin{verbatim}
+		As discussed in section \ref{sec:introduction} ...
+	\end{verbatim}
+\end{quote}
+
+No matter how I rearrange the document, the number in that sentence will be correct.
+
+\subsubsection{Using \textbackslash input}
+
+One of the best features of LaTeX is the ability to break a long document into smaller files.  This is accomplished by using the $\backslash input$ command.  For instance, if I wanted to have a separate file for each section, my document might look like this:
+
+\begin{quote}
+	\begin{verbatim}
+		\documentclass[11pt]{article}
+		
+		\begin{document} 
+		
+		\input{Introduction}
+		\input{Conclusion}
+			
+		\end{document}
+	\end{verbatim}
+\end{quote}
+
+Where I have two files in the same  directory (folder) as your main LaTeX document: ``Introduction.tex" and ``Conclusion.tex".  Not only does this keep your documents clean, it makes it easy to reorganize without having to copy and paste large chunks of text.
