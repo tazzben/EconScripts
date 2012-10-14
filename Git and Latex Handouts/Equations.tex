@@ -44,9 +44,9 @@ Further, you can reference the equation by using $\backslash label\{\cdot\}$ and
 
 And know that my equation number will always be correct.
 
-\subsection{Equations with Align}
+\subsection{Equations with Aligned}
 
-One of the problems that you might run into is when your equation is too long for a single line.  The way to solve this problem is to add an align environment inside of your equation environment.  However, to create an align environment inside of of an equation, you need to load an additional package:
+One of the problems that you might run into is when your equation is too long for a single line.  The way to solve this problem is to add an aligned environment inside of your equation environment.  However, to create an aligned environment inside of of an equation, you need to load an additional package:
 
 \begin{quote}
 	\begin{verbatim}
@@ -59,11 +59,11 @@ Now, you could do something like this:
 \begin{quote}
 	\begin{verbatim}
 		\begin{equation}
-			\begin{align}
+			\begin{aligned}
 	  			\pi_t(\cdot) &= q_p(\cdot)P_p - C_p q_p(\cdot) - F - C_s q_p(\cdot) \\
 	  			& - C_s q_p(\cdot) \int\limits_0^w{e^{-rt}f(t)S(t)dt} \\
 	  			& + (q_s(\cdot)P_s - C_sq_s(\cdot))\int\limits_w^T{e^{-rt}f(t)S(t)dt}
-	 		\end{align}
+	 		\end{aligned}
 		\end{equation}
 	\end{verbatim}
 \end{quote}
@@ -71,11 +71,11 @@ Now, you could do something like this:
 Which produces:
 
 \begin{equation}
-	\begin{align}
+	\begin{aligned}
 		\pi_t(\cdot) &= q_p(\cdot)P_p - C_p q_p(\cdot) - F - C_s q_p(\cdot) \\
 	  	& - C_s q_p(\cdot) \int\limits_0^w{e^{-rt}f(t)S(t)dt} \\
 	  	& + (q_s(\cdot)P_s - C_sq_s(\cdot))\int\limits_w^T{e^{-rt}f(t)S(t)dt}
-	 \end{align}
+	 \end{aligned}
 \end{equation}
 
 Notice, that the equation is aligned to the ``\&" for each line and you use ``\textbackslash \textbackslash" to indicate a new line.
