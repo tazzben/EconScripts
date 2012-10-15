@@ -137,4 +137,14 @@ Date:   Mon Oct 1 14:21:34 2012 -0700
 	\end{verbatim}
 \end{quote}
 
- 
+You can also generate a ``diff" file, a file containing the changes between two different versions, by typing (on one line):
+
+\begin{quote}
+	\begin{verbatim}
+		> git diff 
+	dd367b7cfd99c3a865d2e655938a8fa8c5e72fd6..1c583cecf971e0ef0bc155ed153275c3307e365e
+ > ~/desktop/diff.diff
+	\end{verbatim}
+\end{quote}
+
+Where ``dd367b7cfd99c3a865d2e655938a8fa8c5e72fd6" and ``1c583cecf971e0ef0bc155ed153275c3307e365e" are the two commit identifiers.  You can also use ``HEAD" to specify the latest version.
