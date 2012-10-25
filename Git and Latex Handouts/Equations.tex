@@ -29,7 +29,9 @@ Like sections, equation environments are auto-numbered by default, but this can 
 	\end{verbatim}
 \end{quote}
 
-Further, you can reference the equation by using $\backslash label\{\cdot\}$ and $\backslash ref\{\cdot\}$.  For instance, I might do the following:
+Like aligned enviroments (section \ref{eqwithalign}), using \emph{equation*} requires loading the \emph{amsmath} package.  I cover loading that package in section \ref{eqwithalign}.
+
+Further, you can reference equations by using $\backslash label\{\cdot\}$ and $\backslash ref\{\cdot\}$.  For instance, I might do the following:
 
 \begin{quote}
 	\begin{verbatim}
@@ -45,6 +47,7 @@ Further, you can reference the equation by using $\backslash label\{\cdot\}$ and
 And know that my equation number will always be correct.
 
 \subsection{Equations with Aligned}
+\label{eqwithalign}
 
 One of the problems that you might run into is when your equation is too long for a single line.  The way to solve this problem is to add an aligned environment inside of your equation environment.  However, to create an aligned environment inside of of an equation, you need to load an additional package:
 
