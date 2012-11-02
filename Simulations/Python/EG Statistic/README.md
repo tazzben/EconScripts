@@ -22,4 +22,4 @@ You must also specify the number of iterations per simulation [-i].  We recommen
 
 ## Notice ##
 
-This is area of current research by Andrew Cassey and Ben Smith (both at Washington State University - a paper will be forthcoming).  If you want  to use our code to test critical values for your area of interest, feel free.  But, don't be a jerk, give us credit.
+This is area of current research by Andrew Cassey and Ben Smith (both at Washington State University - a paper has been submitted to JUE -- [working paper available here](http://faculty.ses.wsu.edu/WorkingPapers/Cassey/wp2012-8.pdf)).  If you want  to use our code to test critical values for your area of interest, feel free.  But, don't be a jerk, give us credit.
