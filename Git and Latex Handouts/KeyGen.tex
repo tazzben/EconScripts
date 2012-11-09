@@ -1,0 +1,123 @@
+\documentclass[11pt]{article}
+
+% Allows Hyperlinks
+\usepackage{hyperref}
+
+% Sets more normal margins
+\usepackage{fullpage}
+
+% Use Verbatim for showing commands 
+\usepackage{verbatim}
+
+% Get Array Package for Tables and Graphic Alignment
+\usepackage{array}
+
+% Allow Importing of Graphics
+\usepackage{graphicx}
+
+% Allow for Double Space
+\usepackage{setspace}
+
+\begin{document} 
+
+\title{Creating Keys for Git, SSH and More}
+\date{}
+\author{\textbf{Ben O. Smith\footnote{\href{mailto:tazz_ben@ad.wsu.edu}{tazz\_ben@ad.wsu.edu}}} \\
+School of Economic Sciences \\
+Washington State University}
+\maketitle \doublespace
+
+\section*{Purpose}
+
+To use services like Git remotes, SSH or other networked systems, one security method is using key pairs.  Key pairs has the advantage of being more robust to brute force attacks and avoids the problems of remembering passwords.  This document is a quick reference to create key pairs.
+
+\section{Windows}
+
+\subsection{Install Git}
+
+The first step is to install Git so that you can generate the key.  Please go to \href{http://git-scm.com/download/win}{http://git-scm.com/download/win} to download the latest version.  Once it is downloaded, follow the onscreen help to install Git.
+
+\subsection{Generate Keys}
+
+From the start menu, open the ``Git" folder and select ``Git Bash".
+	
+Now type:
+
+\begin{quote}
+	\begin{verbatim}
+		> ssh-keygen -t rsa -C "YourEmail@domain.com"
+	\end{verbatim}
+\end{quote}
+
+You can choose to enter a passphrase or specify special paths.  However, for most people, simply pressing enter (thereby selecting the default) for each question will be fine.
+
+Ok, your keys are now generated.  If you selected the defaults, your public key will be called ``id\_rsa.pub" and your private key will be called ``id\_rsa".  You can share your public key with whomever you want, you should share your private key with no one.
+
+In all likelihood, you are following this guide because someone has requested your public key.  A simple way to get the public key is to type the following:
+
+\begin{quote}
+	\begin{verbatim}
+		> clip < ~/.ssh/id_rsa.pub
+	\end{verbatim}
+\end{quote}
+
+Your key is now copied to the clipboard and can be pasted into a text editor like notepad.
+
+\section{Mac}
+
+\subsection{Generate Keys}
+
+Start your ``Terminal" application, it is located in your ``/Applications/Utilities" folder.
+
+Now type:
+
+\begin{quote}
+	\begin{verbatim}
+		> ssh-keygen -t rsa -C "YourEmail@domain.com"
+	\end{verbatim}
+\end{quote}
+
+You can choose to enter a passphrase or specify special paths.  However, for most people, simply pressing enter (thereby selecting the default) for each question will be fine.
+
+Ok, your keys are now generated.  If you selected the defaults, your public key will be called ``id\_rsa.pub" and your private key will be called ``id\_rsa".  You can share your public key with whomever you want, you should share your private key with no one.
+
+In all likelihood, you are following this guide because someone has requested your public key.  A simple way to get the public key is to type the following:
+
+\begin{quote}
+	\begin{verbatim}
+		> pbcopy < ~/.ssh/id_rsa.pub
+	\end{verbatim}
+\end{quote}
+
+Your key is now copied to the clipboard and can be pasted into a text editor like TextEdit.
+
+\section{Linux}
+
+\subsection{Generate Keys}
+
+Start your terminal application from the application menu.
+
+Now type:
+
+\begin{quote}
+	\begin{verbatim}
+		> ssh-keygen -t rsa -C "YourEmail@domain.com"
+	\end{verbatim}
+\end{quote}
+
+You can choose to enter a passphrase or specify special paths.  However, for most people, simply pressing enter (thereby selecting the default) for each question will be fine.
+
+Ok, your keys are now generated.  If you selected the defaults, your public key will be called ``id\_rsa.pub" and your private key will be called ``id\_rsa".  You can share your public key with whomever you want, you should share your private key with no one.
+
+In all likelihood, you are following this guide because someone has requested your public key.  A simple way to get the public key is to type the following:
+
+\begin{quote}
+	\begin{verbatim}
+		> sudo apt-get install xclip
+		> xclip -sel clip < ~/.ssh/id_rsa.pub
+	\end{verbatim}
+\end{quote}
+
+Your key is now copied to the clipboard and can be pasted into a text editor like gEdit.
+
+\end{document}
