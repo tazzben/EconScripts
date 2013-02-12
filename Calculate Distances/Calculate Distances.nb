@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     11407,        303]
-NotebookOptionsPosition[     10602,        270]
-NotebookOutlinePosition[     10958,        286]
-CellTagsIndexPosition[     10915,        283]
+NotebookDataLength[     11401,        301]
+NotebookOptionsPosition[     10594,        268]
+NotebookOutlinePosition[     10951,        284]
+CellTagsIndexPosition[     10908,        281]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -107,9 +107,7 @@ Build an empty distance table, and start looping over the main list\
 
 Cell[CellGroupData[{
 
-Cell["\<\
-Once in the loop extract the two names of the locations\
-\>", "Item",
+Cell["Once in the loop extract the two names of the locations", "Item",
  CellChangeTimes->{{3.557664524079194*^9, 3.55766454364494*^9}}],
 
 Cell[TextData[{
@@ -269,9 +267,9 @@ Cell[BoxData[{
 }, Open  ]]
 },
 WindowSize->{1018, 729},
-WindowMargins->{{Automatic, 206}, {Automatic, 7}},
-FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
-2011)",
+WindowMargins->{{198, Automatic}, {Automatic, 0}},
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
+2013)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -286,24 +284,24 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[579, 22, 244, 4, 67, "Section"],
-Cell[826, 28, 790, 16, 43, "Input"]
+Cell[579, 22, 244, 4, 80, "Section"],
+Cell[826, 28, 790, 16, 46, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1653, 49, 412, 7, 89, "Section"],
-Cell[2068, 58, 1309, 37, 73, "Input"]
+Cell[1653, 49, 412, 7, 115, "Section"],
+Cell[2068, 58, 1309, 37, 80, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3414, 100, 307, 5, 67, "Section"],
+Cell[3414, 100, 307, 5, 80, "Section"],
 Cell[CellGroupData[{
-Cell[3746, 109, 144, 3, 20, "Item"],
-Cell[3893, 114, 331, 7, 20, "Item"],
-Cell[4227, 123, 232, 5, 20, "Item"],
-Cell[4462, 130, 208, 5, 20, "Item"],
-Cell[4673, 137, 171, 4, 20, "Item"],
-Cell[4847, 143, 156, 3, 20, "Item"]
+Cell[3746, 109, 136, 1, 28, "Item"],
+Cell[3885, 112, 331, 7, 28, "Item"],
+Cell[4219, 121, 232, 5, 28, "Item"],
+Cell[4454, 128, 208, 5, 28, "Item"],
+Cell[4665, 135, 171, 4, 28, "Item"],
+Cell[4839, 141, 156, 3, 28, "Item"]
 }, Open  ]],
-Cell[5018, 149, 5568, 118, 373, "Input"]
+Cell[5010, 147, 5568, 118, 420, "Input"]
 }, Open  ]]
 }
 ]
