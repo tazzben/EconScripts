@@ -14,7 +14,7 @@ You must specify five input files [option switch in brackets]:
 * Number of Firms: File containing a list of the number of firms in an industry [-n]
 * Destination: File to save output (CSV) [-d]
 
-You must also specify the number of iterations per simulation [-i].  We recommend at least 1000.  If you wish to use the mersenne twister algorithm instead of fortuna for random number generation specify [--twister].  If you wish to not allow non-integer firm head counts, you can specify the option [--roundfirmsize]; or you can change the rounding behavior using [--roundfirmsizedown] or [--roundfirmsizeup].  Specifying [--normal] will create firm size draws from a normal distribution instead of log normal.
+You must also specify the number of iterations per simulation [-i].  We recommend at least 1000.  If you wish to use the mersenne twister algorithm instead of fortuna for random number generation specify [--twister].  If you wish to not allow non-integer firm head counts, you can specify the option [--roundfirmsize]; or you can change the rounding behavior using [--roundfirmsizedown] or [--roundfirmsizeup].  Specifying [--normal] will create firm size draws from a normal distribution instead of log normal.  Additionally, you can use Françoise Maurel and Béatrice Sédillot (1999)'s specification for both G and gamma [--maurel].
 
 ### Example Command ###
 
