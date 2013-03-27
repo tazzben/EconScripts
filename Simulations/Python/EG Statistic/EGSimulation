@@ -69,7 +69,7 @@ def WriteFile(filename,criticalvalues, pvaluesList,data):
 	print "Saving # of Firms: " + str(data['NumberOfFirms']) + ", Firm Size: " + str(data['FirmSize']) + ", StDev: " + str(data['StDev'])
 
 
-def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopsc,destination, twister, roundval, normaldist, pvaluesList):
+def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopsc,destination, twister, roundval, normaldist, pvaluesList, cMS):
 	for x in range(len(numberoffirmsList)):
 		for y in range(len(firmsizeList)):
 			for z in range(len(sdevList)):
@@ -78,7 +78,7 @@ def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,cr
 					stsend = 0
 				else:
 					stsend = float(firmsizeList[y]*float(sdevList[z]))
-				cGS = gammaSimulation(rState, firmsizeList[y], stsend, int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister, roundval, normaldist, pvaluesList)
+				cGS = gammaSimulation(rState, firmsizeList[y], stsend, int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister, roundval, normaldist, pvaluesList, cMS)
 				gamma = cGS.getGamma()
 				herfindahl = cGS.getHerfindahl()
 				gValue = cGS.getGValue()
@@ -189,10 +189,14 @@ def main():
 	p.add_option("--roundfirmsizetenths", action="store_true", dest="roundvaltenths", default=False, help="Round firm size to nearest tenth")
 	p.add_option("--seed", type="int", dest="seed", default=1012810, help="Seed the random generator with a specified value")
 	p.add_option("--normal", action="store_true", dest="normaldist", default=False, help="Normal distributed firm sizes instead of log normal")
+	p.add_option("--maurel", action="store_true", dest="cMS", default=False, help="Use Maurel and Sedillot (1999)'s value of G instead of EG")
 	
 	(options, arguments) = p.parse_args();
 	
-	
+	if options.cMS == True:
+		cMS = True
+	else:
+		cMS = False
 	
 	if len(options.destination)>0:
 		destination = isReturnFile(options.destination.strip())
@@ -234,7 +238,7 @@ def main():
 			roundval = True
 		
 		rState = RandomIntVal(int(options.seed))
-		RunSimulation(rState,numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,int(options.iterations),destination,options.twister,roundval,options.normaldist,pvalues)
+		RunSimulation(rState,numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,int(options.iterations),destination,options.twister,roundval,options.normaldist,pvalues, cMS)
 		del rState
 	else:
 		print 'You must specify files for tranche, critical values, firm size, number of firms, standard deviation'

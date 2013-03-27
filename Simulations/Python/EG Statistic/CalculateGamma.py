@@ -17,7 +17,7 @@ class CalculateGamma:
 	
 	# Class Startup, default values defined to prevent crash if undefined
 	
-	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], twister=False, roundval=False, distNorm=False):
+	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], twister=False, roundval=False, distNorm=False, cMS = False):
 		self.industrySize = 0
 		self.herfindahlValue = float(0)
 		self.xSquaredSum = float(0)
@@ -37,7 +37,10 @@ class CalculateGamma:
 			self.DefineSiList()
 		else:
 			self.siList = [float(0)] * len(self.tranche)
-		self.CalculateG()
+		if cMS == True:
+			self.CalculateG()
+		else:
+			self.CalculateGMS()
 		self.Calculate()
 
 		
@@ -69,6 +72,16 @@ class CalculateGamma:
 			gi = float(self.siList[x])-prob
 			g = g + gi**2
 		self.gValue = g	
+	
+	def CalculateGMS(self):
+		self.gValue = float(self.xSquaredSum + self.CalculateSiSQ())
+
+	def CalculateSiSQ(self):
+		s = float(0)
+		for x in range(len(self.siList)):
+			si = float(self.siList[x])
+			s = s + si**2
+		return float(s)
 	
 	def DefineSiList(self):		
 		for x in range(len(self.tranche)):
