@@ -74,9 +74,9 @@ class CalculateGamma:
 		self.gValue = g	
 	
 	def CalculateGMS(self):
-		self.gValue = float(self.xSquaredSum + self.CalculateSiSQ())
+		self.gValue = float(-self.xSquaredSum + self.CalculateSiSQ())
 
-	def CalculateSiSQ(self):
+	def CalculateSiSQ(self):		
 		s = float(0)
 		for x in range(len(self.siList)):
 			si = float(self.siList[x])
