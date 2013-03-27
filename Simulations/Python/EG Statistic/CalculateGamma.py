@@ -37,12 +37,11 @@ class CalculateGamma:
 			self.DefineSiList()
 		else:
 			self.siList = [float(0)] * len(self.tranche)
+		
 		if cMS == True:
-			self.CalculateG()
-		else:
 			self.CalculateGMS()
-		self.Calculate()
-
+		else:
+			self.CalculateG()
 		
 	def GetHerfindahl(self):
 		return float(self.herfindahlValue)
