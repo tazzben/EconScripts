@@ -42,6 +42,7 @@ class CalculateGamma:
 			self.CalculateGMS()
 		else:
 			self.CalculateG()
+		self.Calculate()
 		
 	def GetHerfindahl(self):
 		return float(self.herfindahlValue)
