@@ -52,7 +52,7 @@ class gammaSimulation:
 		gValueList = []
 		combindedList = []
 		for i in range(tLoops):
-			eCg = CalculateGamma(self.rState,self.averageFirmSize,self.lstDev,self.numberOfFirms,self.tranche,self.twister,self.roundval,self.distNorm)
+			eCg = CalculateGamma(self.rState,self.averageFirmSize,self.lstDev,self.numberOfFirms,self.tranche,self.twister,self.roundval,self.distNorm, self.cMS)
 			gamma = float(eCg.GetGamma())
 			herfindahl = float(eCg.GetHerfindahl())
 			gValue = float(eCg.GetGValue())
