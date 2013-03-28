@@ -1,3 +1,0 @@
-projectDirectory = "$CWD"
-windowTitle      = "$TM_DISPLAYNAME — EconScripts"
-fileChooserGlob  = "{{src,Shared/include}/**/*.{sh,py,md,r},target{,s},Makefile{,.*},.tm_properties}"
