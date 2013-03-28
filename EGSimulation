@@ -96,6 +96,8 @@ class EstablishmentOfCohort:
 			value = self.rState.getValue()
 		return value
 
+
+
 class CalculateGamma:
 	"""Class to calculate gamma value based on a simulated cohort"""
 
@@ -113,7 +115,7 @@ class CalculateGamma:
 	
 	# Class Startup, default values defined to prevent crash if undefined
 	
-	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], twister=False, roundval=False, distNorm=False):
+	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], twister=False, roundval=False, distNorm=False, cMS = False):
 		self.industrySize = 0
 		self.herfindahlValue = float(0)
 		self.xSquaredSum = float(0)
@@ -133,9 +135,12 @@ class CalculateGamma:
 			self.DefineSiList()
 		else:
 			self.siList = [float(0)] * len(self.tranche)
-		self.CalculateG()
+		
+		if cMS == True:
+			self.CalculateGMS()
+		else:
+			self.CalculateG()
 		self.Calculate()
-
 		
 	def GetHerfindahl(self):
 		return float(self.herfindahlValue)
@@ -165,6 +170,16 @@ class CalculateGamma:
 			gi = float(self.siList[x])-prob
 			g = g + gi**2
 		self.gValue = g	
+	
+	def CalculateGMS(self):
+		self.gValue = float(-self.xSquaredSum + self.CalculateSiSQ())
+
+	def CalculateSiSQ(self):		
+		s = float(0)
+		for x in range(len(self.siList)):
+			si = float(self.siList[x])
+			s = s + si**2
+		return float(s)
 	
 	def DefineSiList(self):		
 		for x in range(len(self.tranche)):
@@ -203,27 +218,6 @@ class CalculateGamma:
 				HValue = HValue + proportion**2
 		self.herfindahlValue = HValue
 
-class RandomIntVal:
-	
-	seed = 1012810
-	nState = RandomState(seed)
-	cState = random.StrongRandom()
-	
-	def __init__(self, seed=1012810):
-		self.nState = RandomState(seed)
-		self.cState = random.StrongRandom()
-
-		# Sampler warmup
-		print "Starting Sampler Warm-up"
-		junk = self.nState.random_sample(10000)
-		print "Warm-up Complete"
-	
-	def getValue(self):
-		maxsize = sys.maxint-1
-		rn = float(self.cState.randint(0,maxsize))/maxsize
-		return rn
-	def getValueTwister(self):
-		return self.nState.random_sample()
 
 class gammaSimulation:
 	"""Class to handle/store simulation values"""
@@ -243,10 +237,11 @@ class gammaSimulation:
 	rState = False
 	distNorm = False
 	pValues = []
+	cMS = False
 	
 	# Class Startup, default values defined to prevent crash if undefined
 	
-	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], critcalValues=[], tLoops=1, twister=False, roundval=False, distNorm=False, pValues=[]):
+	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], critcalValues=[], tLoops=1, twister=False, roundval=False, distNorm=False, pValues=[], cMS=False):
 		self.tranche = tranche
 		self.numberOfFirms = numberOfFirms
 		self.averageFirmSize = averageFirmSize
@@ -257,6 +252,7 @@ class gammaSimulation:
 		self.rState = rState
 		self.distNorm = distNorm
 		self.pValues = pValues
+		self.cMS = cMS
 		self.Run(tLoops)
 
 	def getGamma(self):
@@ -274,7 +270,7 @@ class gammaSimulation:
 		gValueList = []
 		combindedList = []
 		for i in range(tLoops):
-			eCg = CalculateGamma(self.rState,self.averageFirmSize,self.lstDev,self.numberOfFirms,self.tranche,self.twister,self.roundval,self.distNorm)
+			eCg = CalculateGamma(self.rState,self.averageFirmSize,self.lstDev,self.numberOfFirms,self.tranche,self.twister,self.roundval,self.distNorm, self.cMS)
 			gamma = float(eCg.GetGamma())
 			herfindahl = float(eCg.GetHerfindahl())
 			gValue = float(eCg.GetGValue())
@@ -373,6 +369,37 @@ class gammaSimulation:
 		self.sGValue['std'] = numpy.std(gValueList)
 		self.sGValue['min'] = numpy.nanmin(gValueList)
 		self.sGValue['max'] = numpy.nanmax(gValueList)
+		
+		
+		
+
+
+
+class RandomIntVal:
+	
+	seed = 1012810
+	nState = RandomState(seed)
+	cState = random.StrongRandom()
+	
+	def __init__(self, seed=1012810):
+		self.nState = RandomState(seed)
+		self.cState = random.StrongRandom()
+
+		# Sampler warmup
+		print "Starting Sampler Warm-up"
+		junk = self.nState.random_sample(10000)
+		print "Warm-up Complete"
+	
+	def getValue(self):
+		maxsize = sys.maxint-1
+		rn = float(self.cState.randint(0,maxsize))/maxsize
+		return rn
+	def getValueTwister(self):
+		return self.nState.random_sample()
+
+
+
+
 
 
 def isNumeric(value):
@@ -433,7 +460,8 @@ def WriteFile(filename,criticalvalues, pvaluesList,data):
 	print "Saving # of Firms: " + str(data['NumberOfFirms']) + ", Firm Size: " + str(data['FirmSize']) + ", StDev: " + str(data['StDev'])
 
 
-def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopsc,destination, twister, roundval, normaldist, pvaluesList):
+
+def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopsc,destination, twister, roundval, normaldist, pvaluesList, cMS):
 	for x in range(len(numberoffirmsList)):
 		for y in range(len(firmsizeList)):
 			for z in range(len(sdevList)):
@@ -442,7 +470,7 @@ def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,cr
 					stsend = 0
 				else:
 					stsend = float(firmsizeList[y]*float(sdevList[z]))
-				cGS = gammaSimulation(rState, firmsizeList[y], stsend, int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister, roundval, normaldist, pvaluesList)
+				cGS = gammaSimulation(rState, firmsizeList[y], stsend, int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister, roundval, normaldist, pvaluesList, cMS)
 				gamma = cGS.getGamma()
 				herfindahl = cGS.getHerfindahl()
 				gValue = cGS.getGValue()
@@ -523,7 +551,9 @@ def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,cr
 				
 				WriteFile(destination,criticalvaluesList, pvaluesList,resultDic)
 				
- 
+
+
+
 def loadFile(value):
 	empty_data = []
 	with open(value.strip(), 'rU') as f:
@@ -553,10 +583,14 @@ def main():
 	p.add_option("--roundfirmsizetenths", action="store_true", dest="roundvaltenths", default=False, help="Round firm size to nearest tenth")
 	p.add_option("--seed", type="int", dest="seed", default=1012810, help="Seed the random generator with a specified value")
 	p.add_option("--normal", action="store_true", dest="normaldist", default=False, help="Normal distributed firm sizes instead of log normal")
+	p.add_option("--maurel", action="store_true", dest="cMS", default=False, help="Use Maurel and Sedillot (1999)'s value of G instead of EG")
 	
 	(options, arguments) = p.parse_args();
 	
-	
+	if options.cMS == True:
+		cMS = True
+	else:
+		cMS = False
 	
 	if len(options.destination)>0:
 		destination = isReturnFile(options.destination.strip())
@@ -598,11 +632,12 @@ def main():
 			roundval = True
 		
 		rState = RandomIntVal(int(options.seed))
-		RunSimulation(rState,numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,int(options.iterations),destination,options.twister,roundval,options.normaldist,pvalues)
+		RunSimulation(rState,numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,int(options.iterations),destination,options.twister,roundval,options.normaldist,pvalues, cMS)
 		del rState
 	else:
 		print 'You must specify files for tranche, critical values, firm size, number of firms, standard deviation'
 		sys.exit()	
+
 
 if __name__ == '__main__':
     main()
