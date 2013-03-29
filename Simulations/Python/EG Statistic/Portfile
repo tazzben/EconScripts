@@ -33,4 +33,4 @@ python.link_binaries_suffix
 
 livecheck.type      regex
 livecheck.url       ${github.homepage}/archive
-livecheck.regex     $(\[0-9.\]+)${extract.suffix}
+livecheck.regex     (\[0-9.\]+)${extract.suffix}
