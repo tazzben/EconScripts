@@ -32,5 +32,5 @@ depends_lib-append  port:py${python.version}-crypto \
 python.link_binaries_suffix
 
 livecheck.type      regex
-livecheck.url       ${github.homepage}/archive
+livecheck.url       ${github.homepage}/tags
 livecheck.regex     (\[0-9.\]+)${extract.suffix}
