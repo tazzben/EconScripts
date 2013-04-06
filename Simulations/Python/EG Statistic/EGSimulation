@@ -185,7 +185,7 @@ def main():
 	p.add_option("--twister", action="store_true", dest="twister", default=False, help="Use mersenne twister for random number generation instead of fortuna")
 	p.add_option("--roundfirmsize", action="store_true", dest="roundval", default=False, help="Round firm size to closest integer")
 	p.add_option("--roundfirmsizedown", action="store_true", dest="roundvaldown", default=False, help="Round firm size down to closest integer")
-	p.add_option("--roundfirmsizeup", action="store_true", dest="roundvalup", default=False, help="Round firm size down to closest integer")
+	p.add_option("--roundfirmsizeup", action="store_true", dest="roundvalup", default=False, help="Round firm size up to closest integer")
 	p.add_option("--roundfirmsizetenths", action="store_true", dest="roundvaltenths", default=False, help="Round firm size to nearest tenth")
 	p.add_option("--seed", type="int", dest="seed", default=1012810, help="Seed the random generator with a specified value")
 	p.add_option("--normal", action="store_true", dest="normaldist", default=False, help="Normal distributed firm sizes instead of log normal")
