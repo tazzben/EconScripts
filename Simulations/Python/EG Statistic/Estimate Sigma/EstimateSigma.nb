@@ -1,0 +1,79 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      2062,         70]
+NotebookOptionsPosition[      1737,         53]
+NotebookOutlinePosition[      2094,         69]
+CellTagsIndexPosition[      2051,         66]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data", " ", "=", " ", 
+   RowBox[{"Drop", "[", 
+    RowBox[{
+     RowBox[{"Flatten", "[", 
+      RowBox[{"Import", "[", "\"\<PlantData.csv\>\"", "]"}], "]"}], ",", 
+     "1"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"FindDistributionParameters", "[", 
+  RowBox[{"data", ",", 
+   RowBox[{"LogNormalDistribution", "[", 
+    RowBox[{"\[Mu]", ",", "\[Sigma]"}], "]"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.577452198725165*^9, 3.5774522299235983`*^9}, {
+  3.577452281966807*^9, 3.577452312657011*^9}, {3.577452411208084*^9, 
+  3.577452439407065*^9}, {3.577452525011797*^9, 3.577452540679069*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"\[Mu]", "\[Rule]", "3.3991269616623954`"}], ",", 
+   RowBox[{"\[Sigma]", "\[Rule]", "0.604907982189049`"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.577452230850368*^9, {3.577452288363071*^9, 3.577452314175723*^9}, 
+   3.577452442150352*^9, 3.577452493673835*^9, {3.5774525267405043`*^9, 
+   3.577452560439865*^9}}]
+}, Open  ]]
+},
+WindowSize->{740, 705},
+WindowMargins->{{158, Automatic}, {Automatic, 43}},
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
+2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 769, 18, 63, "Input"],
+Cell[1351, 42, 370, 8, 62, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

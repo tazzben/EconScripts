@@ -32,6 +32,11 @@ sudo port install EGSimulation
 
 This method takes care of all dependancies and can manage updates for you.  For information on installing MacPorts, please visit [their site](http://www.macports.org/install.php).
 
+## Estimating Sigma ##
+
+When applying this simulation to small geographic regions, it may be possible to access the employee count data for the industry (such as in a city). Under the estimate sigma folder, we have two simple examples of estimating sigma using [R](http://www.r-project.org/) (free) and [Mathematica](http://www.wolfram.com/mathematica/). 
+
+
 ## Notice ##
 
 This is area of current research by Andrew Cassey and Ben Smith (both at Washington State University - a paper has been submitted to JUE -- [working paper available here](http://faculty.ses.wsu.edu/WorkingPapers/Cassey/wp2012-8.pdf)).  If you want  to use our code to test critical values for your area of interest, feel free.  But, don't be a jerk, give us credit.
