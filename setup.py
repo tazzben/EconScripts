@@ -9,7 +9,7 @@ long_desc = """
 
 
 setup(name="EGSimulation",
-      version=1.1,
+      version=1.2,
       description="Simulate the Ellison & Glaeser statistic using randomness alone",
       author="Ben Smith",
       author_email="tazz_ben@ad.wsu.edu",
