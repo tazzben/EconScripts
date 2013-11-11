@@ -5,8 +5,8 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           python 1.0
 
-github.setup        tazzben EGSimulation 1.2
-github.project      EconScripts
+github.setup        tazzben EconScripts 1.2
+name                EGSimulation
 categories          science
 platforms           darwin
 maintainers         ad.wsu.edu:tazz_ben
@@ -15,9 +15,17 @@ supported_archs     noarch
 
 description         Simulate the Ellison & Glaeser statistic using randomness alone
 
-long_description    By using a simulation of firm sizes (using a lognormal distribution) and specified geographic regions, standard deviations and employee head count, we can compute the critical regions for the Ellison & Glaeser statistic. In the process, it also calculates herfindahl values and provides critical regions.  You can also use Françoise Maurel and Béatrice Sédillot (1999)'s specification for both G and gamma.
+long_description    By using a simulation of firm sizes (using a lognormal \
+                    distribution) and specified geographic regions, standard \
+                    deviations and employee head count, we can compute the \
+                    critical regions for the Ellison & Glaeser statistic. In \
+                    the process, it also calculates herfindahl values and \
+                    provides critical regions. You can also use Françoise \
+                    Maurel and Béatrice Sédillot (1999)'s specification for \
+                    both G and gamma.
 
 homepage            ${github.homepage}/tree/master/Simulations/Python/EG%20Statistic
+distname            ${name}-${version}
 
 checksums           rmd160  d6b5d09981836ab80a8d1512df227b6685150b60 \
                     sha256  226181ccb0c42aa040541d051360c44778ccce226d5ccd7198222e008440bac7
@@ -29,7 +37,3 @@ depends_lib-append  port:py${python.version}-crypto \
                     port:py${python.version}-scipy
 
 python.link_binaries_suffix
-
-livecheck.type      regex
-livecheck.url       ${github.homepage}/tags
-livecheck.regex     (\[0-9.\]+)${extract.suffix}
