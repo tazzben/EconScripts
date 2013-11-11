@@ -1,6 +1,6 @@
 # EGSimulation - Compute Ellison & Glaeser Critical Regions by Simulation #
 
-By using a simulation of firm sizes (using a lognormal distribution) and specified geographic regions, standard deviations and employee head count, we can compute the critical regions for the Ellison & Glaeser statistic.  In the process, it also calculates herfindahl values and provides critical regions.
+By using a simulation of firm sizes (using a lognormal distribution) and specified geographic regions, standard deviations and employee head count, we can compute the critical regions for the Ellison & Glaeser statistic.  In the process, it also calculates Herfindahl values and provides critical regions.
 
 ## Usage ##
 
@@ -15,6 +15,8 @@ You must specify five input files [option switch in brackets]:
 * Destination: File to save output (CSV) [-d]
 
 You must also specify the number of iterations per simulation [-i].  We recommend at least 1000.  If you wish to use the mersenne twister algorithm instead of fortuna for random number generation specify [--twister].  If you wish to not allow non-integer firm head counts, you can specify the option [--roundfirmsize]; or you can change the rounding behavior using [--roundfirmsizedown] or [--roundfirmsizeup].  Specifying [--normal] will create firm size draws from a normal distribution instead of log normal.  Additionally, you can use Françoise Maurel and Béatrice Sédillot (1999)'s specification for both G and gamma [--maurel].
+
+If you wish to censor your results based on Herfindahl values.  You can specify [--HerfCensuredLow] and [--HerfCensuredHigh].  Any simulation that is not in this range will be tossed.  The output file will also contain how many iterations were saved and how many were performed.
 
 ### Example Command ###
 
@@ -39,4 +41,4 @@ When applying this simulation to small geographic regions, it may be possible to
 
 ## Notice ##
 
-This is area of current research by Andrew Cassey and Ben Smith (both at Washington State University - a paper has been submitted to JUE -- [working paper available here](http://faculty.ses.wsu.edu/WorkingPapers/Cassey/wp2012-8.pdf)).  If you want  to use our code to test critical values for your area of interest, feel free.  But, don't be a jerk, give us credit.
+This is area of current research by Andrew Cassey and Ben Smith (both at Washington State University - a paper has been submitted to JUE -- [working paper available here](http://bensresearch.com/downloads/EGstat.pdf)).  If you want  to use our code to test critical values for your area of interest, feel free.  But, don't be a jerk, give us credit.

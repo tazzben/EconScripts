@@ -20,10 +20,14 @@ class gammaSimulation:
 	distNorm = False
 	pValues = []
 	cMS = False
+	herfCen = False
+	herfLow=-1
+	herfHigh=-1
+	
 	
 	# Class Startup, default values defined to prevent crash if undefined
 	
-	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], critcalValues=[], tLoops=1, twister=False, roundval=False, distNorm=False, pValues=[], cMS=False):
+	def __init__(self, rState, averageFirmSize=18, lstDev=1, numberOfFirms=3, tranche=[], critcalValues=[], tLoops=1, twister=False, roundval=False, distNorm=False, pValues=[], cMS=False, herfCen = False, herfLow=-1, herfHigh=-1):
 		self.tranche = tranche
 		self.numberOfFirms = numberOfFirms
 		self.averageFirmSize = averageFirmSize
@@ -35,6 +39,9 @@ class gammaSimulation:
 		self.distNorm = distNorm
 		self.pValues = pValues
 		self.cMS = cMS
+		self.herfCen = herfCen
+		self.herfLow = herfLow
+		self.herfHigh = herfHigh
 		self.Run(tLoops)
 
 	def getGamma(self):
@@ -51,19 +58,24 @@ class gammaSimulation:
 		herfindahlList = []
 		gValueList = []
 		combindedList = []
-		for i in range(tLoops):
+		whileLoopCount = 0
+		totalLoopCount = 0
+		while (whileLoopCount<tLoops):
 			eCg = CalculateGamma(self.rState,self.averageFirmSize,self.lstDev,self.numberOfFirms,self.tranche,self.twister,self.roundval,self.distNorm, self.cMS)
 			gamma = float(eCg.GetGamma())
 			herfindahl = float(eCg.GetHerfindahl())
 			gValue = float(eCg.GetGValue())
 			del eCg
-			gammaList.append(gamma)
-			herfindahlList.append(herfindahl)
-			gValueList.append(gValue)
-			combined = {}
-			combined['gamma'] = gamma
-			combined['herfindahl'] = herfindahl
-			combindedList.append(combined)
+			if self.herfCen==False or (herfindahl>=self.herfLow and self.herfHigh>=herfindahl):
+				gammaList.append(gamma)
+				herfindahlList.append(herfindahl)
+				gValueList.append(gValue)
+				combined = {}
+				combined['gamma'] = gamma
+				combined['herfindahl'] = herfindahl
+				combindedList.append(combined)
+				whileLoopCount = whileLoopCount + 1
+			totalLoopCount = totalLoopCount + 1
 		gammaList.sort()
 		herfindahlList.sort()
 		combindedList.sort(key=operator.itemgetter('gamma'))
@@ -151,6 +163,9 @@ class gammaSimulation:
 		self.sGValue['std'] = numpy.std(gValueList)
 		self.sGValue['min'] = numpy.nanmin(gValueList)
 		self.sGValue['max'] = numpy.nanmax(gValueList)
+		self.sGValue['loops'] = whileLoopCount
+		self.sGValue['totalloops'] = totalLoopCount
+		
 		
 		
 		

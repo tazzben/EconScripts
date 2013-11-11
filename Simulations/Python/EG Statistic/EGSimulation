@@ -28,7 +28,7 @@ def isReturnFile(myfile):
 		print 'You can\'t save to that location'
 		sys.exit()
 
-def WriteFile(filename,criticalvalues, pvaluesList,data):
+def WriteFile(filename,criticalvalues, pvaluesList,data,herfCen=False):
 	fieldList = ['NumberOfFirms','FirmSize','StDev','GammaMean','GammaMin','GammaMax','GammaStd','HerfindahlMean','HerfindahlMin','HerfindahlMax','HerfindahlStd','GValueMean','GValueMin','GValueMax','GValueStd','PValue']
 	
 	for x in range(len(criticalvalues)):
@@ -55,6 +55,9 @@ def WriteFile(filename,criticalvalues, pvaluesList,data):
 	for x in range(len(pvaluesList)):
 		fieldList.append("HP" + str(pvaluesList[x]).replace('.','').strip())
 	
+	if herfCen == True:
+		fieldList.append("SavedIterations")
+		fieldList.append("TotalIterations")
 	
 	if os.path.isfile(filename) == False:
 		mf = open(filename, 'wb')
@@ -69,7 +72,7 @@ def WriteFile(filename,criticalvalues, pvaluesList,data):
 	print "Saving # of Firms: " + str(data['NumberOfFirms']) + ", Firm Size: " + str(data['FirmSize']) + ", StDev: " + str(data['StDev'])
 
 
-def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopsc,destination, twister, roundval, normaldist, pvaluesList, cMS):
+def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,loopsc,destination, twister, roundval, normaldist, pvaluesList, cMS, herfCen = False, herfLow=-1, herfHigh=-1):
 	for x in range(len(numberoffirmsList)):
 		for y in range(len(firmsizeList)):
 			for z in range(len(sdevList)):
@@ -78,7 +81,7 @@ def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,cr
 					stsend = 0
 				else:
 					stsend = float(firmsizeList[y]*float(sdevList[z]))
-				cGS = gammaSimulation(rState, firmsizeList[y], stsend, int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister, roundval, normaldist, pvaluesList, cMS)
+				cGS = gammaSimulation(rState, firmsizeList[y], stsend, int(numberoffirmsList[x]), trancheList, criticalvaluesList, loopsc, twister, roundval, normaldist, pvaluesList, cMS, herfCen, herfLow, herfHigh)
 				gamma = cGS.getGamma()
 				herfindahl = cGS.getHerfindahl()
 				gValue = cGS.getGValue()
@@ -102,6 +105,7 @@ def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,cr
 				resultDic['GValueMin'] = gValue['min']
 				resultDic['GValueMax'] = gValue['max']
 				resultDic['GValueStd'] = gValue['std']
+				
 				
 				resultDic['PValue'] = gamma['pvalue']
 				
@@ -157,7 +161,11 @@ def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,trancheList,cr
 					key = "HP" + str(pvaluesList[cv]).replace('.','').strip()
 					resultDic[key] = lcv[cv]	
 				
-				WriteFile(destination,criticalvaluesList, pvaluesList,resultDic)
+				if herfCen == True:
+					resultDic['SavedIterations'] = gValue['loops']
+					resultDic['TotalIterations'] = gValue['totalloops']
+				
+				WriteFile(destination,criticalvaluesList, pvaluesList,resultDic,herfCen)
 				
  
 def loadFile(value):
@@ -190,14 +198,23 @@ def main():
 	p.add_option("--seed", type="int", dest="seed", default=1012810, help="Seed the random generator with a specified value")
 	p.add_option("--normal", action="store_true", dest="normaldist", default=False, help="Normal distributed firm sizes instead of log normal")
 	p.add_option("--maurel", action="store_true", dest="cMS", default=False, help="Use Maurel and Sedillot (1999)'s value of G instead of EG")
+	p.add_option("--HerfCensuredLow", type="float", dest="HerfCensuredLow", default=-1.0, help="Toss any simulated result where the Herfindahl is below this value")
+	p.add_option("--HerfCensuredHigh", type="float", dest="HerfCensuredHigh", default=-1.0, help="Toss any simulated result where the Herfindahl is above this value")
 	
 	(options, arguments) = p.parse_args();
-	
+	herfRange = False
 	if options.cMS == True:
 		cMS = True
 	else:
 		cMS = False
 	
+	
+	if options.HerfCensuredLow>=0 and options.HerfCensuredHigh>options.HerfCensuredLow:
+		herfRange = True
+	if (options.HerfCensuredLow>-1 or options.HerfCensuredLow>-1) and herfRange==False:
+		print 'Sorry, you must specify a censored range such that the low Herfindahl value is less than the high Herfindahl value.  We highly suggest you run a uncensored simulation to find out where the Herfindahl values are likely to be.'
+		sys.exit()
+		
 	if len(options.destination)>0:
 		destination = isReturnFile(options.destination.strip())
 	else:
@@ -238,7 +255,7 @@ def main():
 			roundval = True
 		
 		rState = RandomIntVal(int(options.seed))
-		RunSimulation(rState,numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,int(options.iterations),destination,options.twister,roundval,options.normaldist,pvalues, cMS)
+		RunSimulation(rState,numberoffirmsList,firmsizeList,sdevList,trancheList,criticalvaluesList,int(options.iterations),destination,options.twister,roundval,options.normaldist,pvalues, cMS, herfRange, options.HerfCensuredLow, options.HerfCensuredHigh)
 		del rState
 	else:
 		print 'You must specify files for tranche, critical values, firm size, number of firms, standard deviation'
