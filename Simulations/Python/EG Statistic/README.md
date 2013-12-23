@@ -38,6 +38,14 @@ This method takes care of all dependancies and can manage updates for you.  For 
 
 When applying this simulation to small geographic regions, it may be possible to access the employee count data for the industry (such as in a city). Under the estimate sigma folder, we have two simple examples of estimating sigma using [R](http://www.r-project.org/) (free) and [Mathematica](http://www.wolfram.com/mathematica/). 
 
+## Simulating Herfindahls ##
+
+In preparation of using our simulator, it might be necessary to simulate Herfindahl values to determine the likely range given a set number of plants in an industry and the sigma value of the underlying normal distribution of plant employment.   For this task, we have two Herfindahl simulators:
+
+1. "Generate Herfindahl Range for Each N and Sigma"
+2. "Generate Herfindahl Bins for Each N given a Range of Sigmas"
+
+Like our main application, both simulators take plant size (-f), sigma (-s) and plants (-n) as input text files that the program loops over.  The output file is specified by -d.  The difference between the two simulators is that (1) takes all simulated H values for a given N and sigma and provides a confidence interval (then moves to the next N/sigma combination).  (2) groups all simulated H values for a given N for all specified values of sigma and provided decile bins.
 
 ## Notice ##
 
