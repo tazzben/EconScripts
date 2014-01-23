@@ -1,0 +1,110 @@
+#!/usr/bin/env python
+import optparse
+import os
+import platform
+import sys
+import codecs
+from hSimulation import *
+import csv
+from decimal import *
+import numpy
+from RandomIntVal import *
+import pprint
+
+def isNumeric(value):
+	return str(value).replace('.','').strip().isdigit()
+
+def fileExists(value):
+    if os.path.isfile(os.path.expanduser(value.strip())):
+        return os.path.abspath(os.path.expanduser(value.strip()))
+    else:
+        print "I can't find the file " + value
+        sys.exit()
+
+def isReturnFile(myfile):
+	if os.path.abspath(os.path.expanduser(myfile.strip())) != False:
+		return os.path.abspath(os.path.expanduser(myfile.strip()))
+	else:
+		print 'You can\'t save to that location'
+		sys.exit()
+
+def WriteFile(filename,firms,data):	
+	if os.path.isfile(filename) == False:
+		fieldList = ['Plants', 'sigma','herflow','herfhigh']
+		mf = open(filename, 'wb')
+		myfile = csv.writer(mf)
+		myfile.writerow(fieldList)
+		mf.close()
+	
+	mergedlist = []
+	mergedlist.append(firms)
+	mergedlist.extend(data)
+	
+	mf = open(filename,'ab+')
+	myfile = csv.writer(mf)
+	myfile.writerow(mergedlist)
+	mf.close()
+	print "Saving # of Firms: " + str(firms)
+
+
+def RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,loopsc,destination):
+	for x in range(len(numberoffirmsList)):
+		for y in range(len(firmsizeList)):
+			for z in range(len(sdevList)):
+				cGS = hSimulation(rState, firmsizeList[y], sdevList[z], int(numberoffirmsList[x]),loopsc)
+				herfs = cGS.Run()
+				WriteFile(destination,int(numberoffirmsList[x]),herfs)
+				
+ 
+def loadFile(value):
+	empty_data = []
+	with open(value.strip(), 'rU') as f:
+		read_data = f.readlines()
+	
+	for x in range(len(read_data)):
+		if isNumeric(read_data[x].strip()):
+			empty_data.append(float(read_data[x].strip()))
+			
+	return empty_data
+
+def main():
+	desc = 'Tool to simulate Herfindahl values'
+	p = optparse.OptionParser(description=desc)
+	p.add_option('--firmsize', '-f', dest="firmsize", help="File containing firm size (head count)", default='', metavar='"<File Path>"')
+	p.add_option('--sdev', '-s', dest="sdev", help="File containing the standard deviations to test", default='', metavar='"<File Path>"')
+	p.add_option('--numberoffirms', '-n', dest="numberoffirms", help="File containing the number of firms (in an industry) to test", default='', metavar='"<File Path>"')
+	p.add_option('--iterations', '-i', type="int", dest="iterations", help="Number of iterations to run for each simulation", default=1000)
+	p.add_option('--destination', '-d', dest="destination", help="Main csv file to save simulation(s) output", default='', metavar='"<File Path>"')
+	p.add_option("--seed", type="int", dest="seed", default=1012810, help="Seed the random generator with a specified value")
+	
+	(options, arguments) = p.parse_args();
+		
+	if len(options.destination)>0:
+		destination = isReturnFile(options.destination.strip())
+	else:
+		print 'You must specify a destination file'
+		sys.exit()
+	
+	if int(options.iterations)<=0 or int(options.seed)<0:
+		print 'You must specify a positive value for both iterations and seeding the random number generator'
+		sys.exit()
+	
+	if len(options.firmsize)>0 and len(options.numberoffirms)>0 and len(options.sdev)>0:
+		firmsizefile = fileExists(options.firmsize)
+		numberoffirmsfile = fileExists(options.numberoffirms)
+		sdevfile = fileExists(options.sdev)
+		
+		firmsizeList = loadFile(firmsizefile)
+		numberoffirmsList = loadFile(numberoffirmsfile)
+		sdevList = loadFile(sdevfile)
+		
+		
+		rState = RandomIntVal(int(options.seed))
+		RunSimulation(rState, numberoffirmsList,firmsizeList,sdevList,int(options.iterations),destination)
+		del rState
+	else:
+		print 'You must specify files for firm size, number of firms, sigma'
+		sys.exit()	
+
+if __name__ == '__main__':
+    main()
