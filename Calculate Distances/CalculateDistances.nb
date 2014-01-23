@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     11401,        301]
-NotebookOptionsPosition[     10594,        268]
-NotebookOutlinePosition[     10951,        284]
-CellTagsIndexPosition[     10908,        281]
+NotebookDataLength[     11622,        306]
+NotebookOptionsPosition[     10813,        273]
+NotebookOutlinePosition[     11172,        289]
+CellTagsIndexPosition[     11129,        286]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -28,7 +28,8 @@ Initialize working directory where I have my data and want to save the results\
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"SetDirectory", "[", "\"\<~/desktop/\>\"", "]"}], 
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"Locations", " ", "=", " ", 
@@ -42,7 +43,8 @@ Cell[BoxData[{
    3.5439424413497257`*^9}, {3.54394395800152*^9, 3.5439439624972067`*^9}, {
    3.543944016877556*^9, 3.543944017405035*^9}, 3.557663168543536*^9, {
    3.5576632340879107`*^9, 3.5576632391325893`*^9}, {3.557663333684559*^9, 
-   3.557663334370924*^9}, {3.557663429939467*^9, 3.557663453658163*^9}}]
+   3.557663334370924*^9}, {3.557663429939467*^9, 3.557663453658163*^9}, 
+   3.5994775132768517`*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -201,25 +203,27 @@ Cell[BoxData[{
         RowBox[{"If", "[", 
          RowBox[{
           RowBox[{"NumericQ", "[", "l", "]"}], ",", "l", ",", " ", 
-          RowBox[{"Read", "[", 
-           RowBox[{
-            RowBox[{"Take", "[", 
-             RowBox[{
-              RowBox[{"StringSplit", "[", 
-               RowBox[{"StringTrim", "[", 
-                RowBox[{"ToString", "[", 
-                 RowBox[{"WolframAlpha", "[", 
-                  RowBox[{
+          RowBox[{
+           RowBox[{"ToExpression", "[", 
+            RowBox[{"Flatten", "[", "\[IndentingNewLine]", 
+             RowBox[{"Take", "[", 
+              RowBox[{
+               RowBox[{"StringSplit", "[", 
+                RowBox[{"StringTrim", "[", 
+                 RowBox[{"ToString", "[", 
+                  RowBox[{"WolframAlpha", "[", 
                    RowBox[{
-                   "\"\<distance between \>\"", "<>", " ", "c1name", "<>", 
+                    RowBox[{
+                    "\"\<distance between \>\"", "<>", " ", "c1name", "<>", 
                     "\"\<, \>\"", "<>", " ", "c2name"}], ",", 
-                   RowBox[{"{", 
+                    RowBox[{"{", 
                     RowBox[{
                     RowBox[{"{", 
                     RowBox[{"\"\<Result\>\"", ",", "1"}], "}"}], ",", 
                     "\"\<Plaintext\>\""}], "}"}]}], "]"}], "]"}], "]"}], 
-               "]"}], ",", "1"}], "]"}], ",", "Number"}], "]"}]}], "]"}]}], 
-       ";", "\[IndentingNewLine]", 
+                "]"}], ",", "1"}], "]"}], "]"}], "]"}], "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
        RowBox[{"l", "=", " ", 
         RowBox[{"If", "[", 
          RowBox[{
@@ -263,11 +267,12 @@ Cell[BoxData[{
    3.544086907224201*^9}, {3.544087335077615*^9, 3.544087336146109*^9}, {
    3.5441093920689096`*^9, 3.544109405314929*^9}, {3.544278720815731*^9, 
    3.5442787224207993`*^9}, {3.5576635252288*^9, 3.557663531068709*^9}, {
-   3.557664162574993*^9, 3.557664176469227*^9}}]
+   3.557664162574993*^9, 3.557664176469227*^9}, {3.599478883371809*^9, 
+   3.599478968379487*^9}}]
 }, Open  ]]
 },
 WindowSize->{1018, 729},
-WindowMargins->{{198, Automatic}, {Automatic, 0}},
+WindowMargins->{{327, Automatic}, {208, Automatic}},
 FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
 2013)",
 StyleDefinitions->"Default.nb"
@@ -285,23 +290,23 @@ CellTagsIndex->{}
 Notebook[{
 Cell[CellGroupData[{
 Cell[579, 22, 244, 4, 80, "Section"],
-Cell[826, 28, 790, 16, 46, "Input"]
+Cell[826, 28, 841, 18, 46, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1653, 49, 412, 7, 115, "Section"],
-Cell[2068, 58, 1309, 37, 80, "Input"]
+Cell[1704, 51, 412, 7, 115, "Section"],
+Cell[2119, 60, 1309, 37, 80, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3414, 100, 307, 5, 80, "Section"],
+Cell[3465, 102, 307, 5, 80, "Section"],
 Cell[CellGroupData[{
-Cell[3746, 109, 136, 1, 28, "Item"],
-Cell[3885, 112, 331, 7, 28, "Item"],
-Cell[4219, 121, 232, 5, 28, "Item"],
-Cell[4454, 128, 208, 5, 28, "Item"],
-Cell[4665, 135, 171, 4, 28, "Item"],
-Cell[4839, 141, 156, 3, 28, "Item"]
+Cell[3797, 111, 136, 1, 28, "Item"],
+Cell[3936, 114, 331, 7, 28, "Item"],
+Cell[4270, 123, 232, 5, 28, "Item"],
+Cell[4505, 130, 208, 5, 28, "Item"],
+Cell[4716, 137, 171, 4, 28, "Item"],
+Cell[4890, 143, 156, 3, 28, "Item"]
 }, Open  ]],
-Cell[5010, 147, 5568, 118, 420, "Input"]
+Cell[5061, 149, 5736, 121, 369, "Input"]
 }, Open  ]]
 }
 ]
