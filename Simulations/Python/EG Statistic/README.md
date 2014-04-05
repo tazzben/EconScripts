@@ -49,4 +49,4 @@ Like our main application, both simulators take plant size (-f), sigma (-s) and 
 
 ## Notice ##
 
-This is area of current research by Andrew Cassey and Ben Smith (both at Washington State University - a paper has been submitted to JUE -- [working paper available here](http://bensresearch.com/downloads/EGstat.pdf)).  If you want  to use our code to test critical values for your area of interest, feel free.  But, don't be a jerk, give us credit.
+This code is part of a larger research project published in the *[Journal of Urban Economics](http://doi.org/10.1016/j.jue.2014.02.005)* by Andrew Cassey and Ben Smith (at Washington State University and the University of Nebraska at Omaha, respectfully).  If you want  to use our code to test critical values for your area of interest, feel free.  But, don't be a jerk, give us credit.
