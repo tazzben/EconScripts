@@ -6,7 +6,7 @@ Thanks,
 
 Ben Smith  
 Economist    
-Washington State University  
+University of Nebraska at Omaha
 
 ## Optimization Scripts ##
 
