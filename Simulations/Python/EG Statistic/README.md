@@ -34,6 +34,15 @@ sudo port install EGSimulation
 
 This method takes care of all dependancies and can manage updates for you.  For information on installing MacPorts, please visit [their site](http://www.macports.org/install.php).
 
+## Binary Versions Available ##
+
+If you don't have a copy of Python installed, we've made binary versions of the application available:
+
+1. [Windows](http://storage.googleapis.com/public-downloads/egsimulation_windows.zip)
+2. [Mac](http://storage.googleapis.com/public-downloads/egsimulation_mac.zip)
+
+Both versions come pre-bundled with a directory of sample configuration files and an example command.  These applications have been tested on Windows 8.1 and OS X Mavericks, respectively.
+
 ## Estimating Sigma ##
 
 When applying this simulation to small geographic regions, it may be possible to access the employee count data for the industry (such as in a city). Under the estimate sigma folder, we have two simple examples of estimating sigma using [R](http://www.r-project.org/) (free) and [Mathematica](http://www.wolfram.com/mathematica/). 
@@ -50,3 +59,21 @@ Like our main application, both simulators take plant size (-f), sigma (-s) and 
 ## Notice ##
 
 This code is part of a larger research project published in the *[Journal of Urban Economics](http://doi.org/10.1016/j.jue.2014.02.005)* by Andrew Cassey and Ben Smith (at Washington State University and the University of Nebraska at Omaha, respectfully).  If you want  to use our code to test critical values for your area of interest, feel free.  But, don't be a jerk, give us credit.
+
+|Format|Citation|  
+| ------	| ------	|  
+|MLA	| Cassey, Andrew J., and Ben O. Smith. "Simulating confidence for the Ellison–Glaeser index." *Journal of Urban Economics* 81 (2014): 85-103.|  
+|APA	| Cassey, A. J., & Smith, B. O. (2014). Simulating confidence for the Ellison–Glaeser index. *Journal of Urban Economics*, *81*, 85-103.|  
+|Chicago|Cassey, Andrew J., and Ben O. Smith. "Simulating confidence for the Ellison–Glaeser index." *Journal of Urban Economics* 81 (2014): 85-103.|  
+
+BibTeX:
+
+	@article{CasseySmith2014,
+	 title={Simulating confidence for the Ellison--Glaeser index},
+	 author={Cassey, Andrew J and Smith, Ben O},
+	 journal={Journal of Urban Economics},
+	 volume={81},
+	 pages={85--103},
+	 year={2014},
+	 publisher={Elsevier}
+	 }
