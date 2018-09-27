@@ -31,7 +31,7 @@ An extremely common problem in economics is finding the physical distances betwe
 
 ## Class ##
 
-I've posted my slides for those who took my Python class.  This explains the basics of programming and using NumPy and SciPy.  Additionally, I've taught a class on LaTeX and Git.  The handouts are under the the "Git and Latex Handouts" folder.  The handout source is posted, and I purposely only loaded packages that I used and noted in the comments why I loaded them.
+I've posted my slides for those who took my Python class.  This explains the basics of programming and using NumPy and SciPy.  Additionally, I've taught a class on LaTeX and Git.  The handouts are under the "Git and Latex Handouts" folder.  The handout source is posted, and I purposely only loaded packages that I used and noted in the comments why I loaded them.
 
 ## Helpful Links ##
 
