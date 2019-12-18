@@ -2,6 +2,10 @@
 
 By using a simulation of firm sizes (using a lognormal distribution) and specified geographic regions, standard deviations and employee head count, we can compute the critical regions for the Ellison & Glaeser statistic.  In the process, it also calculates Herfindahl values and provides critical regions.
 
+## NOTICE (2019) ##
+
+Modernized versions of this software have been developed at [CasseySmithCV](https://github.com/tazzben/CasseySmithCV) (python module) and [CasseySmithCLI](https://github.com/tazzben/CasseySmithCLI) (command line tool).  These updated versions produce the same results as the older code presented here, but take advantage of changes in the python language and the increased prevalence of multi-core processors. Thus the code executes substantially faster. For new projects, we recommend you use the newer version.   
+
 ## Usage ##
 
 You must specify five input files [option switch in brackets]:
@@ -21,18 +25,6 @@ If you wish to censor your results based on Herfindahl values.  You can specify 
 ### Example Command ###
 
 	./EGSimulation -t "data/tranche.txt" -c "data/criticalvalues.txt" -f "data/size.txt" -s "data/stdev.txt" -n "data/firms.txt" -i 1200 -d "data/output.csv"
-
-
-## The Super Easy Way to Install (Macports) ##
-
-You can install this application using MacPorts!  Type the following:
-
-<pre>
-sudo port -v selfupdate
-sudo port install EGSimulation
-</pre>
-
-This method takes care of all dependancies and can manage updates for you.  For information on installing MacPorts, please visit [their site](http://www.macports.org/install.php).
 
 ## Binary Versions Available ##
 
